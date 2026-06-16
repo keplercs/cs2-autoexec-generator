@@ -1040,17 +1040,569 @@ window.resetSelection = function() {
   document.getElementById('btn-next').disabled = true;
 };
 
-window.goToStep2 = function() {
+window.goToStep2 = async function() {
   if (!selectedAcct) return;
-  // Store selected account data for next step
-  window._selectedAcct = selectedAcct;
-  window._steamHandle  = steamDirHandle;
-  // Mark step 1 done, step 2 active
+
+  // ── Step indicator ───────────────────────────────────────────
   document.getElementById('step-1').classList.remove('active');
   document.getElementById('step-1').classList.add('done');
   document.getElementById('step-2').classList.add('active');
-  // Step 2 will be built separately
-  alert(`Paso 2 en construcción.\n\nCuenta seleccionada: ${selectedAcct.profile.name}\nID64: ${selectedAcct.id64}\nArchivos encontrados: ${Object.values(selectedAcct.configFiles).filter(Boolean).length}`);
+
+  // ── Hide step 1, show step 2 ─────────────────────────────────
+  document.querySelector('.container').innerHTML = `
+    <div class="page-hdr">
+      <h1>Preview — Autoexec.cfg</h1>
+      <p>Valores leídos de tus archivos <code style="font-family:var(--mono);color:var(--or);font-size:11px">.vcfg</code> de <strong>${escHtml(selectedAcct.profile.name)}</strong>. Revisa el resultado antes de exportar.</p>
+    </div>
+    <div class="info-box tip" id="parse-status">
+      <div class="spinner"></div>
+      <div>Leyendo archivos de configuración...</div>
+    </div>
+    <div id="step2-content" style="display:none;flex-direction:column;gap:16px"></div>
+  `;
+
+  // ── Read all vcfg files ──────────────────────────────────────
+  const rawFiles = {};
+  for (const [filename, fh] of Object.entries(selectedAcct.configHandles)) {
+    try { rawFiles[filename] = await (await fh.getFile()).text(); }
+    catch { rawFiles[filename] = null; }
+  }
+
+  // ── VDF full parser (convars + bindings) ─────────────────────
+  function parseVDFFull(src) {
+    if (!src) return {};
+    const tokens = [];
+    let i = 0;
+    while (i < src.length) {
+      const c = src[i];
+      if (/\s/.test(c)) { i++; continue; }
+      if (c === '/' && src[i+1] === '/') { while (i < src.length && src[i] !== '\n') i++; continue; }
+      if (c === '{') { tokens.push('OPEN'); i++; continue; }
+      if (c === '}') { tokens.push('CLOSE'); i++; continue; }
+      if (c === '"') {
+        let s = ''; i++;
+        while (i < src.length) {
+          if (src[i] === '\\' && i+1 < src.length) { s += src[i+1]; i+=2; continue; }
+          if (src[i] === '"') { i++; break; }
+          s += src[i++];
+        }
+        tokens.push(s);
+      } else {
+        let w = '';
+        while (i < src.length && !/[\s{}"\/]/.test(src[i])) w += src[i++];
+        if (w) tokens.push(w);
+      }
+    }
+    let pos = 0;
+    function obj() {
+      const o = {};
+      while (pos < tokens.length) {
+        if (tokens[pos] === 'CLOSE') { pos++; return o; }
+        const k = tokens[pos++];
+        if (pos >= tokens.length) break;
+        o[k] = tokens[pos] === 'OPEN' ? (pos++, obj()) : tokens[pos++];
+      }
+      return o;
+    }
+    const root = {};
+    while (pos < tokens.length) {
+      if (tokens[pos]==='OPEN'||tokens[pos]==='CLOSE'){pos++;continue;}
+      const k = tokens[pos++];
+      if (pos >= tokens.length) break;
+      root[k] = tokens[pos]==='OPEN'?(pos++,obj()):tokens[pos++];
+    }
+    return root;
+  }
+
+  function flattenConvars(src) {
+    const out = {};
+    function walk(o, d=0) {
+      if (!o||typeof o!=='object'||d>5) return;
+      for (const [k,v] of Object.entries(o)) {
+        if (typeof v==='string') out[k]=v;
+        else walk(v, d+1);
+      }
+    }
+    walk(parseVDFFull(src));
+    return out;
+  }
+
+  function extractBindings(src) {
+    const out = {};
+    function walk(o, d=0) {
+      if (!o||typeof o!=='object'||d>5) return;
+      if ('bindings' in o && typeof o.bindings==='object') {
+        Object.assign(out, o.bindings); return;
+      }
+      for (const v of Object.values(o)) if (typeof v==='object') walk(v,d+1);
+    }
+    walk(parseVDFFull(src));
+    return out;
+  }
+
+  // ── Parse all files ──────────────────────────────────────────
+  const userConvars    = flattenConvars(rawFiles['cs2_user_convars_0_slot0.vcfg']);
+  const machineConvars = flattenConvars(rawFiles['cs2_machine_convars.vcfg']);
+  const bindings       = extractBindings(rawFiles['cs2_user_keys_0_slot0.vcfg']);
+  const videoConvars   = flattenConvars(rawFiles['cs2_video.txt']);
+
+  // Merge: user > machine > video (user has highest priority)
+  const allConvars = { ...videoConvars, ...machineConvars, ...userConvars };
+
+  const totalConvars = Object.keys(allConvars).length;
+  const totalBinds   = Object.keys(bindings).length;
+
+  // ── Generate Autoexec.cfg from template ──────────────────────
+  // Template convar map — maps template placeholder value to actual convar name
+  // We inject vcfg values into the template structure preserving all comments/sections
+
+  function getVal(key, fallback='') {
+    return allConvars[key] ?? fallback;
+  }
+
+  function getBind(key) {
+    return bindings[key] ?? ' ';
+  }
+
+  const now = new Date().toLocaleDateString('es', {day:'numeric',month:'short',year:'numeric'});
+  const acctName = selectedAcct.profile.name;
+  const id64     = selectedAcct.id64;
+
+  // ── Build the autoexec string ─────────────────────────────────
+  // We reproduce the canonical template structure exactly,
+  // substituting values from vcfg where available.
+
+  const cv = (key, fallback) => {
+    const v = allConvars[key];
+    return v !== undefined ? v : fallback;
+  };
+
+  const autoexec = buildAutoexec(cv, bindings, acctName, id64, now);
+
+  // ── Update status ────────────────────────────────────────────
+  const statusEl = document.getElementById('parse-status');
+  statusEl.className = 'info-box ok';
+  statusEl.innerHTML = `<i class="ti ti-check"></i>
+    <div>Leídos <strong>${totalConvars}</strong> convars y <strong>${totalBinds}</strong> binds de <strong>${escHtml(acctName)}</strong>.
+    Autoexec.cfg generado — ${autoexec.split('\n').length} líneas.</div>`;
+
+  // ── Render step 2 content ────────────────────────────────────
+  const content = document.getElementById('step2-content');
+  content.style.display = 'flex';
+
+  // Stats row
+  content.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      ${statCard('ti-settings','Convars',totalConvars,'leídos del vcfg')}
+      ${statCard('ti-keyboard','Binds',totalBinds,'leídos del vcfg')}
+      ${statCard('ti-file-code','Líneas',autoexec.split('\n').length,'en el autoexec')}
+    </div>
+
+    <div class="card">
+      <div class="card-head" style="justify-content:space-between">
+        <span><i class="ti ti-file-code"></i> Autoexec.cfg — ${escHtml(acctName)}</span>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px" onclick="copyAutoexec()">
+            <i class="ti ti-copy"></i> Copiar
+          </button>
+        </div>
+      </div>
+      <pre id="cfg-preview" style="
+        font-family:var(--mono);font-size:11px;line-height:1.7;
+        padding:16px;max-height:480px;overflow-y:auto;
+        background:#040404;color:#c8c4bc;white-space:pre;
+      ">${hlCfg(escHtml(autoexec))}</pre>
+    </div>
+
+    <div class="info-box tip">
+      <i class="ti ti-info-circle"></i>
+      <div>Los valores marcados con <code style="font-family:var(--mono);color:var(--green);font-size:10px">// ← vcfg</code>
+      fueron leídos de tus archivos. El resto usa valores de tu Autoexec.cfg base.</div>
+    </div>
+  `;
+
+  // Store generated autoexec for export
+  window._generatedAutoexec = autoexec;
+  window._acctName = acctName;
+
+  // Footer
+  const footer = document.getElementById('footer-action');
+  footer.innerHTML = `
+    <div class="footer-hint">Preview generado — <span>${escHtml(acctName)}</span></div>
+    <button class="btn btn-ghost" onclick="backToStep1()">
+      <i class="ti ti-arrow-left"></i> Volver
+    </button>
+    <button class="btn btn-primary" onclick="goToStep3()">
+      Scripts opcionales <i class="ti ti-arrow-right"></i>
+    </button>
+  `;
+};
+
+// ── STAT CARD HELPER ─────────────────────────────────────────
+function statCard(icon, label, value, sub) {
+  return `<div style="background:var(--s2);border:1px solid var(--b2);border-radius:var(--r2);padding:14px 16px">
+    <div style="font-size:11px;color:var(--tx3);display:flex;align-items:center;gap:5px;margin-bottom:6px">
+      <i class="ti ${icon}"></i> ${label}
+    </div>
+    <div style="font-size:22px;font-weight:600;font-family:var(--mono);color:var(--or)">${value}</div>
+    <div style="font-size:10px;color:var(--tx3);margin-top:2px">${sub}</div>
+  </div>`;
+}
+
+// ── CFG SYNTAX HIGHLIGHT ─────────────────────────────────────
+function hlCfg(html) {
+  return html
+    .split('\n')
+    .map(line => {
+      if (/^\/\//.test(line.trim())) {
+        return `<span style="color:#4a6a40">${line}</span>`;
+      }
+      if (/^bind /.test(line.trim())) {
+        return `<span style="color:#a8d8a0">${line}</span>`;
+      }
+      if (/^alias /.test(line.trim())) {
+        return `<span style="color:#d0a8e0">${line}</span>`;
+      }
+      if (/^echo /.test(line.trim())) {
+        return `<span style="color:#7ab8e8">${line}</span>`;
+      }
+      // convar line: highlight key in muted, value in orange
+      const m = line.match(/^([^\s"]+)(\s+)(.*)/);
+      if (m) {
+        return `<span style="color:#b0aca6">${m[1]}</span>${m[2]}<span style="color:#e8a07a">${m[3]}</span>`;
+      }
+      return line;
+    })
+    .join('\n');
+}
+
+// ── BUILD AUTOEXEC FROM VCFG VALUES ──────────────────────────
+function buildAutoexec(cv, binds, acctName, id64, date) {
+  const b = (key, fallback=' ') => {
+    const v = binds[key];
+    return v !== undefined ? v : fallback;
+  };
+
+  // helper: emit a bind line
+  const bindLine = (key, cmd, comment) => {
+    const val = b(key, ' ');
+    const q = val === ' ' ? '" "' : `"${val}"`;
+    return `bind ${q}\t"${cmd}"\t\t\t\t\t// ${comment}`;
+  };
+
+  const lines = [
+`// ╔════════════════════════════════════════════════════════════╗`,
+`// ║  Autoexec.cfg — ${acctName}'s CS2 Autoexec`,
+`// ║  Generado: ${date} — ID: ${id64}`,
+`// ║  Launch option:  +exec Autoexec`,
+`// ╚════════════════════════════════════════════════════════════╝`,
+`// ── General ─────────────────────────────────────────────────`,
+``,
+`unbindall\t\t\t\t\t\t// Limpia cualquier bind previo`,
+`autobuy "0"\t\t\t\t\t\t// No autocomprar al iniciar ronda`,
+`bind "mouse_x" "yaw"\t\t\t\t\t// Mapeo de eje x del mouse a rotacion de camara`,
+`bind "mouse_y" "pitch"\t\t\t\t\t// Mapeo de eje y del mouse a rotacion de camara`,
+`engine_low_latency_sleep_after_client_tick "1"\t\t// Reduce microstutter (low latency mode)`,
+`m_pitch "${cv('m_pitch','0.022')}"\t\t\t\t\t\t// Sensibilidad vertical a nivel de motor`,
+`m_yaw "${cv('m_yaw','0.01863')}"\t\t\t\t\t\t// Sensibilidad horizontal a nivel de motor`,
+`net_client_steamdatagram_enable_override "1" \t\t// Forzar routing via red SDR de Steam`,
+`net_maxroutable "1200"\t\t\t\t\t// Tamano max. de paquete (reduce fragmentacion)`,
+`r_show_build_info "0"\t\t\t\t\t// Sin info de build en pantalla`,
+`sv_showimpacts "0"\t\t\t\t\t// Sin marcas de impacto (estado base, prac.cfg lo activa)`,
+``,
+`// ──────────────────────────────────────────────────────────────`,
+`// NOTA SOBRE TECLAS vs SCANCODES — cambio de idioma ENG US/ENG LAA`,
+`//`,
+`// Movimiento usa bind "shift" "+sprint" y bind "ctrl" "+duck".`,
+`// Presionar ambas a la vez = Ctrl+Shift = atajo de Windows para`,
+`// cambiar idioma del teclado. Solucion:`,
+`//   Configuracion > Hora e idioma > Escritura >`,
+`//   Configuracion avanzada del teclado >`,
+`//   Metodos de acceso directo > "Cambiar idioma" = No asignado.`,
+`// ──────────────────────────────────────────────────────────────`,
+``,
+`echo "[Autoexec] cargando configuracion base..."`,
+``,
+`// ╔════════════════════════════════════════════════════════════╗`,
+`// ║  AUDIO                                                       ║`,
+`// ╚════════════════════════════════════════════════════════════╝`,
+`// ── Audio ───────────────────────────────────────────────────`,
+``,
+`volume "${cv('volume','1')}"\t\t\t\t\t\t// Volumen maestro`,
+`snd_menumap_volume "${cv('snd_menumap_volume','0')}"\t\t\t\t\t// Sin musica de fondo en el menu principal`,
+`sound_device_override "${cv('sound_device_override','Source2SDLDefaultDevice')}"\t\t// Dispositivo de salida`,
+`snd_headphone_eq "${cv('snd_headphone_eq','1')}"\t\t\t\t\t// Perfil de ecualizacion = Crisp (audifonos)`,
+`snd_spatialize_lerp "${cv('snd_spatialize_lerp','0.8')}"\t\t\t\t// Aislamiento L/R — suavizado de audio 3D`,
+`snd_steamaudio_enable_perspective_correction "${cv('snd_steamaudio_enable_perspective_correction','1')}"\t// Correccion de perspectiva (Steam Audio)`,
+`snd_mute_losefocus "${cv('snd_mute_losefocus','0')}"\t\t\t\t\t// No silenciar al perder foco la ventana`,
+``,
+`// ── Voz ─────────────────────────────────────────────────────`,
+``,
+`snd_voipvolume "${cv('snd_voipvolume','1')}"\t\t\t\t\t// Volumen de voz de otros jugadores`,
+`voice_modenable "${cv('voice_modenable','1')}"\t\t\t\t\t// Voz habilitada (push to talk)`,
+`voice_device_override "${cv('voice_device_override','Microphone (High Definition Audio Device)')}" // Dispositivo de entrada`,
+`voice_loopback "${cv('voice_loopback','0')}"\t\t\t\t\t// No escuchar tu propia voz`,
+`voice_always_sample_mic "${cv('voice_always_sample_mic','0')}"\t\t\t\t// Streamlined PTT = no`,
+`voice_threshold "${cv('voice_threshold','-120')}"\t\t\t\t\t// Umbral de activacion del mic (dB)`,
+``,
+`// ── Musica y sonidos de evento ────────────────────────────────`,
+``,
+`snd_menumusic_volume "${cv('snd_menumusic_volume','0')}"\t\t\t\t// Musica del menu principal`,
+`snd_roundstart_volume "${cv('snd_roundstart_volume','0')}"\t\t\t\t// Sonido al iniciar ronda`,
+`snd_roundaction_volume "${cv('snd_roundaction_volume','0')}"\t\t\t\t// Sonido de accion de ronda`,
+`snd_roundend_volume "${cv('snd_roundend_volume','0')}"\t\t\t\t\t// Sonido al terminar ronda`,
+`snd_mvp_volume "${cv('snd_mvp_volume','0')}"\t\t\t\t\t// Musica MVP`,
+`snd_mapobjective_volume "${cv('snd_mapobjective_volume','0')}"\t\t\t\t// Sonido de bomba/rehenes`,
+`snd_tensecondwarning_volume "${cv('snd_tensecondwarning_volume','0.3')}"\t\t\t// Aviso de 10 segundos`,
+`snd_deathcamera_volume "${cv('snd_deathcamera_volume','0')}"\t\t\t\t// Sonido de camara de muerte`,
+`snd_mute_mvp_music_live_players "${cv('snd_mute_mvp_music_live_players','0')}"\t\t\t// Musica MVP con jugadores vivos`,
+``,
+`// ╔════════════════════════════════════════════════════════════╗`,
+`// ║  JUEGO                                                       ║`,
+`// ╚════════════════════════════════════════════════════════════╝`,
+`// ── Juego ───────────────────────────────────────────────────`,
+``,
+`con_enable "${cv('con_enable','1')}"\t\t\t\t\t\t// Habilita la consola`,
+`mm_dedicated_search_maxping "${cv('mm_dedicated_search_maxping','40')}"\t\t\t// Ping maximo al buscar partida`,
+`rate "${cv('rate','786432')}"\t\t\t\t\t\t// Ancho de banda maximo`,
+`cl_net_buffer_ticks "${cv('cl_net_buffer_ticks','0')}"\t\t\t\t\t// Sin buffer extra de red`,
+`install_dlc_workshoptools_cvar "${cv('install_dlc_workshoptools_cvar','0')}"\t\t\t// No instalar herramientas de Workshop`,
+``,
+`// ── HUD ───────────────────────────────────────────────────────`,
+``,
+`hud_scaling "${cv('hud_scaling','1')}"\t\t\t\t\t\t// Escala general del HUD`,
+`cl_hud_color "${cv('cl_hud_color','2')}"\t\t\t\t\t// Color del HUD`,
+`cl_teamcounter_playercount_instead_of_avatars "${cv('cl_teamcounter_playercount_instead_of_avatars','0')}"\t// Conteo grande = NO (mostrar avatares)`,
+`ui_steam_overlay_notification_position "${cv('ui_steam_overlay_notification_position','bottomleft')}"\t// Posicion de notificaciones`,
+`ui_steam_overlay_notification_position_horz "${cv('ui_steam_overlay_notification_position_horz','0')}"\t\t// Offset horizontal`,
+`ui_steam_overlay_notification_position_vert "${cv('ui_steam_overlay_notification_position_vert','0')}"\t\t// Offset vertical`,
+`cl_weapon_selection_rarity_color "${cv('cl_weapon_selection_rarity_color','0')}"\t\t\t// Brillo por rareza = NO`,
+`cl_force_spec_hud_color_to_team "${cv('cl_force_spec_hud_color_to_team','0')}"\t\t\t// Sobreescribir color HUD al espectar = NO`,
+``,
+`// ── Equipo ──────────────────────────────────────────────────`,
+``,
+`cl_teamid_overhead_mode "${cv('cl_teamid_overhead_mode','3')}"\t\t\t\t// Mostrar: pips, nombres, vida y equipo`,
+`cl_teammate_colors_show "${cv('cl_teammate_colors_show','1')}"\t\t\t\t// Colores por jugador en competitivo`,
+`cl_teamid_overhead_colors_show "${cv('cl_teamid_overhead_colors_show','1')}"\t\t\t// Colores en indicador sobre companeros`,
+`lobby_default_privacy_bits2 "${cv('lobby_default_privacy_bits2','1')}"\t\t\t\t// Lobby = todos los amigos pueden unirse`,
+`ui_setting_advertiseForhire_auto "${cv('ui_setting_advertiseForhire_auto','0')}"\t\t\t// No anunciar "buscando equipo"`,
+``,
+`// ── Comunicación ────────────────────────────────────────────`,
+``,
+`cl_player_ping_mute "${cv('cl_player_ping_mute','1')}"\t\t\t\t\t// Pings: mostrar sin sonido`,
+`cl_mute_enemy_team "${cv('cl_mute_enemy_team','0')}"\t\t\t\t\t// No silenciar voz enemiga`,
+`cl_mute_all_but_friends_and_party "${cv('cl_mute_all_but_friends_and_party','0')}"\t\t\t// No silenciar a todos salvo amigos`,
+`cl_allow_animated_avatars "${cv('cl_allow_animated_avatars','0')}"\t\t\t\t// Avatares animados = NO`,
+`cl_hide_avatar_images "${cv('cl_hide_avatar_images','2')}"\t\t\t\t// Avatares = solo amigos`,
+`cl_sanitize_player_names "${cv('cl_sanitize_player_names','0')}"\t\t\t\t// No limpiar nombres de jugadores`,
+``,
+`// ── Espectador / Marcador ───────────────────────────────────`,
+``,
+`spec_usenumberkeys_nobinds "${cv('spec_usenumberkeys_nobinds','1')}"\t\t\t\t// Numeros = cambiar espectador sin pisar binds`,
+`cl_scoreboard_mouse_enable_binding "${cv('cl_scoreboard_mouse_enable_binding','+attack2')}"\t\t// Mouse en marcador = click derecho`,
+`eom_local_player_defeat_anim_enabled "${cv('eom_local_player_defeat_anim_enabled','1')}"\t\t// Animacion de derrota`,
+`cl_scoreboard_survivors_always_on "${cv('cl_scoreboard_survivors_always_on','0')}"\t\t\t// Supervivientes visibles = NO`,
+`cl_obs_interp_enable "${cv('cl_obs_interp_enable','0')}"\t\t\t\t// Camara espectador suavizada = NO`,
+`cl_obs_interp_speed "${cv('cl_obs_interp_speed','0.25')}"\t\t\t\t// Velocidad de suavizado (si se activa)`,
+``,
+`// ── Item ────────────────────────────────────────────────────`,
+``,
+`cl_silencer_mode "${cv('cl_silencer_mode','0')}"\t\t\t\t\t// Silenciador = acoplado`,
+`viewmodel_fov "${cv('viewmodel_fov','68')}"\t\t\t\t\t// FOV del arma (max. competitivo)`,
+`viewmodel_offset_x "${cv('viewmodel_offset_x','2.5')}"\t\t\t\t// Posicion del arma: adelante/atras`,
+`viewmodel_offset_y "${cv('viewmodel_offset_y','0')}"\t\t\t\t\t// Posicion del arma: izquierda/derecha`,
+`viewmodel_offset_z "${cv('viewmodel_offset_z','-1.5')}"\t\t\t\t// Posicion del arma: arriba/abajo`,
+`viewmodel_presetpos "${cv('viewmodel_presetpos','2')}"\t\t\t\t\t// Posicion preestablecida = Classic`,
+`cl_prefer_lefthanded "${cv('cl_prefer_lefthanded','0')}"\t\t\t\t// Arma en mano derecha`,
+`r_drawtracers_firstperson "${cv('r_drawtracers_firstperson','1')}"\t\t\t\t// Trazadoras en 1ra persona`,
+`cl_showloadout "${cv('cl_showloadout','1')}"\t\t\t\t\t// Mostrar inventario en pantalla`,
+`cl_use_opens_buy_menu "${cv('cl_use_opens_buy_menu','0')}"\t\t\t\t// E no abre el menu de compra`,
+`cl_buywheel_nonumberpurchasing "${cv('cl_buywheel_nonumberpurchasing','1')}"\t\t\t// Rueda de compra sin numeros`,
+`cl_buywheel_donate_key "${cv('cl_buywheel_donate_key','0')}"\t\t\t\t// Tecla donar = Ctrl izq.`,
+``,
+`// ── Radar ───────────────────────────────────────────────────`,
+``,
+`cl_radar_always_centered "${cv('cl_radar_always_centered','0')}"\t\t\t\t// Radar se desplaza con tu posicion`,
+`cl_radar_rotate "${cv('cl_radar_rotate','1')}"\t\t\t\t\t// Radar rota segun tu mirada`,
+`cl_hud_radar_map_additive "${cv('cl_hud_radar_map_additive','1')}"\t\t\t\t// Blend del mapa`,
+`cl_hud_radar_blur_background "${cv('cl_hud_radar_blur_background','0')}"\t\t\t// Sin desenfoque de fondo`,
+`cl_hud_radar_background_alpha "${cv('cl_hud_radar_background_alpha','1')}"\t\t\t// Opacidad del fondo = 100%`,
+`cl_hud_radar_scale "${cv('cl_hud_radar_scale','1.3')}"\t\t\t\t// Tamano del radar en HUD`,
+`cl_radar_scale "${cv('cl_radar_scale','0.4')}"\t\t\t\t\t// Zoom del mapa en el radar`,
+`cl_radar_scale_alternate "${cv('cl_radar_scale_alternate','1')}"\t\t\t\t// Escala alternativa (toggleradarscale)`,
+`cl_radar_square_with_scoreboard "${cv('cl_radar_square_with_scoreboard','1')}"\t\t\t// Radar cuadrado con marcador`,
+`cl_radar_square_always "${cv('cl_radar_square_always','0')}"\t\t\t\t// Radar cuadrado siempre = NO`,
+`cl_radar_scale_dynamic "${cv('cl_radar_scale_dynamic','0')}"\t\t\t\t// Zoom dinamico = NO`,
+``,
+`// ── Crosshair ───────────────────────────────────────────────`,
+``,
+`cl_crosshairstyle "${cv('cl_crosshairstyle','4')}"\t\t\t\t\t// Estilo = Classic Static`,
+`cl_crosshair_friendly_warning "${cv('cl_crosshair_friendly_warning','1')}"\t\t\t// Advertencia al apuntar a companeros`,
+`cl_crosshair_recoil "${cv('cl_crosshair_recoil','0')}"\t\t\t\t\t// No seguir el recoil`,
+`cl_crosshairdot "${cv('cl_crosshairdot','0')}"\t\t\t\t\t// Sin punto central`,
+`cl_crosshairsize "${cv('cl_crosshairsize','2.5')}"\t\t\t\t\t// Largo de cada linea`,
+`cl_crosshairthickness "${cv('cl_crosshairthickness','0.5')}"\t\t\t\t// Grosor de linea`,
+`cl_crosshairgap "${cv('cl_crosshairgap','-8')}"\t\t\t\t\t// Espacio entre lineas y centro`,
+`cl_crosshair_outlinethickness "${cv('cl_crosshair_outlinethickness','0')}"\t\t\t// Sin contorno`,
+`cl_crosshaircolor_r "${cv('cl_crosshaircolor_r','0')}"\t\t\t\t\t// Color personalizado: rojo`,
+`cl_crosshaircolor_g "${cv('cl_crosshaircolor_g','255')}"\t\t\t\t// Color personalizado: verde`,
+`cl_crosshaircolor_b "${cv('cl_crosshaircolor_b','0')}"\t\t\t\t\t// Color personalizado: azul`,
+`cl_crosshairalpha "${cv('cl_crosshairalpha','255')}"\t\t\t\t\t// Opacidad = 100%`,
+`cl_crosshair_t "${cv('cl_crosshair_t','0')}"\t\t\t\t\t// Cruz completa (no T-style)`,
+`cl_crosshairgap_useweaponvalue "${cv('cl_crosshairgap_useweaponvalue','0')}"\t\t\t// Gap fijo (ignora el del arma)`,
+`cl_ironsight_usecrosshaircolor "${cv('cl_ironsight_usecrosshaircolor','0')}"\t\t\t// Scope NO usa color del crosshair`,
+`cl_show_observer_crosshair "${cv('cl_show_observer_crosshair','0')}"\t\t\t\t// No mostrar crosshair de espectados`,
+``,
+`// ── Miras de sniper ───────────────────────────────────────────`,
+``,
+`cl_sniper_delay_unscope "${cv('cl_sniper_delay_unscope','0')}"\t\t\t\t// Sin delay al desenfocar sniper`,
+`cl_crosshair_sniper_show_normal_inaccuracy "${cv('cl_crosshair_sniper_show_normal_inaccuracy','1')}"\t\t// Mostrar inexactitud (circulo)`,
+`cl_sniper_auto_rezoom "${cv('cl_sniper_auto_rezoom','1')}"\t\t\t\t// Re-enfocar automaticamente`,
+`cl_crosshair_sniper_width "${cv('cl_crosshair_sniper_width','1')}"\t\t\t\t// Grosor de la cruz de sniper`,
+`cl_ironsight_dot_scale "${cv('cl_ironsight_dot_scale','1')}"\t\t\t\t// Escala del punto de mira = 100%`,
+``,
+`// ── Mira de alineación para granadas ───────────────────────────`,
+``,
+`cl_grenadecrosshair_keepusercrosshair "${cv('cl_grenadecrosshair_keepusercrosshair','1')}"\t\t// Mantener crosshair al lanzar`,
+`cl_grenadecrosshair_flash "${cv('cl_grenadecrosshair_flash','0')}"\t\t\t\t// Sin arco para flashbang`,
+`cl_grenadecrosshairdelay_flash "${cv('cl_grenadecrosshairdelay_flash','0')}"\t\t\t// Delay arco flashbang`,
+`cl_grenadecrosshair_explosive "${cv('cl_grenadecrosshair_explosive','0')}"\t\t\t// Sin arco para HE`,
+`cl_grenadecrosshairdelay_explosive "${cv('cl_grenadecrosshairdelay_explosive','0')}"\t\t\t// Delay arco HE`,
+`cl_grenadecrosshair_fire "${cv('cl_grenadecrosshair_fire','0')}"\t\t\t\t// Sin arco para molotov`,
+`cl_grenadecrosshairdelay_fire "${cv('cl_grenadecrosshairdelay_fire','0')}"\t\t\t// Delay arco molotov`,
+`cl_grenadecrosshair_smoke "${cv('cl_grenadecrosshair_smoke','1')}"\t\t\t\t// Mostrar arco para smoke`,
+`cl_grenadecrosshairdelay_smoke "${cv('cl_grenadecrosshairdelay_smoke','1.5')}"\t\t\t// Delay arco smoke (segundos)`,
+`cl_grenadecrosshair_decoy "${cv('cl_grenadecrosshair_decoy','0')}"\t\t\t\t// Sin arco para decoy`,
+`cl_grenadecrosshairdelay_decoy "${cv('cl_grenadecrosshairdelay_decoy','0')}"\t\t\t// Delay arco decoy`,
+``,
+`// ── Predicción de daño ─────────────────────────────────────────`,
+``,
+`cl_predict_body_shot_fx "${cv('cl_predict_body_shot_fx','0')}"\t\t\t\t// No predecir impacto en cuerpo`,
+`cl_predict_head_shot_fx "${cv('cl_predict_head_shot_fx','0')}"\t\t\t\t// No predecir impacto en cabeza`,
+`cl_predict_kill_ragdolls "${cv('cl_predict_kill_ragdolls','0')}"\t\t\t\t// No predecir ragdolls`,
+``,
+`// ── Telemetría ──────────────────────────────────────────────`,
+``,
+`cl_hud_telemetry_frametime_show "${cv('cl_hud_telemetry_frametime_show','0')}"\t\t\t// Grafico de frametime = nunca`,
+`cl_hud_telemetry_frametime_poor "${cv('cl_hud_telemetry_frametime_poor','10')}"\t\t\t// Umbral frametime "malo" (10ms = 100FPS)`,
+`cl_hud_telemetry_ping_show "${cv('cl_hud_telemetry_ping_show','1')}"\t\t\t\t// Mostrar ping = si las condiciones son malas`,
+`cl_hud_telemetry_net_misdelivery_show "${cv('cl_hud_telemetry_net_misdelivery_show','1')}"\t\t// Problemas de red = si las condiciones son malas`,
+`cl_hud_telemetry_net_misdelivery_poor "${cv('cl_hud_telemetry_net_misdelivery_poor','2')}"\t\t// Umbral paquetes perdidos`,
+`cl_hud_telemetry_net_detailed "${cv('cl_hud_telemetry_net_detailed','0')}"\t\t\t// Detalle extendido = nunca`,
+`cl_hud_telemetry_net_quality_graph_show "${cv('cl_hud_telemetry_net_quality_graph_show','0')}"\t\t// Grafico de calidad = nunca`,
+``,
+`// ╔════════════════════════════════════════════════════════════╗`,
+`// ║  TECLADO Y MOUSE                                             ║`,
+`// ╚════════════════════════════════════════════════════════════╝`,
+`// ── Teclado y configuración de mouse ───────────────────────────`,
+``,
+`//Reverse mouse — OFF (m_pitch positivo)`,
+`option_duck_method "${cv('option_duck_method','0')}"\t\t\t\t\t// Duck Mode = Hold`,
+`option_speed_method "${cv('option_speed_method','0')}"\t\t\t\t\t// Walk Mode = Hold`,
+`cl_debounce_zoom "${cv('cl_debounce_zoom','0')}"\t\t\t\t\t// Zoom Button Hold = Repeat Disabled`,
+`sensitivity "${cv('sensitivity','0.787')}"\t\t\t\t\t// Sensibilidad base`,
+`zoom_sensitivity_ratio "${cv('zoom_sensitivity_ratio','1')}"\t\t\t\t// Sensibilidad con scope`,
+``,
+`// ── Teclas de movimiento ───────────────────────────────────`,
+``,
+`bind "${b('show_loadout_toggle',' ')}" "show_loadout_toggle" \t\t\t\t// Toggle inventario`,
+`bind "w" "+forward"\t\t\t\t\t// Avanzar`,
+`bind "s" "+back"\t\t\t\t\t// Retroceder`,
+`bind "a" "+left"\t\t\t\t\t// Izquierda`,
+`bind "d" "+right"\t\t\t\t\t// Derecha`,
+`bind "shift" "+sprint"\t\t\t\t\t// Caminar/correr (Walk)`,
+`bind "ctrl" "+duck"\t\t\t\t\t// Agacharse (Duck)`,
+`bind "space" "+jump"\t\t\t\t\t// Saltar`,
+`bind "mwheeldown" "+jump"\t\t\t\t// Saltar`,
+`bind "mwheelup" "+jump"\t\t\t\t\t// Saltar`,
+``,
+`// ── Teclas de armas ───────────────────────────────────`,
+``,
+`bind "e" "+use"\t\t\t\t\t\t// Usar — abrir puertas, defusar`,
+`bind "mouse1" "+attack"\t\t\t\t\t// Disparar`,
+`bind "mouse2" "+attack2"\t\t\t\t// Mira/fuego secundario`,
+`bind "r" "+reload"\t\t\t\t\t// Recargar`,
+`bind " " "+quickinv"\t\t\t\t\t// Menu radial de armas`,
+`bind " " "invprev"\t\t\t\t\t// Arma anterior`,
+`bind " " "invnext"\t\t\t\t\t// Arma siguiente`,
+`bind " " "lastinv"\t\t\t\t\t// Ultima arma usada`,
+`bind "g" "drop"\t\t\t\t\t\t// Soltar arma/bomba`,
+`bind "f" "+lookatweapon"\t\t\t\t// Inspeccionar arma`,
+`bind " " "switchhands"\t\t\t\t\t// Cambiar el arma de mano izq/der`,
+`bind "b" "buymenu"\t\t\t\t\t// Menu de compra`,
+`bind " " "autobuy"\t\t\t\t\t// Autocomprar`,
+`bind " " "rebuy"\t\t\t\t\t// Recomprar equipo anterior`,
+`bind "1" "slot1"\t\t\t\t\t// Arma primaria`,
+`bind "2" "slot2"\t\t\t\t\t// Arma secundaria`,
+`bind "3" "slot3"\t\t\t\t\t// Cuchillo`,
+`bind " " "slot4"\t\t\t\t\t// Ciclar granadas`,
+`bind "mouse5" "slot5"\t\t\t\t\t// Explosivos y trampas`,
+`bind "4" "slot6"\t\t\t\t\t// Granada HE`,
+`bind "v" "slot7"\t\t\t\t\t// Flashbang`,
+`bind "c" "slot8"\t\t\t\t\t// Smoke`,
+`bind "5" "slot9"\t\t\t\t\t// Decoy`,
+`bind "x" "slot10"\t\t\t\t\t// Molotov/incendiaria`,
+`bind " " "slot11"\t\t\t\t\t// Zeus x27`,
+`bind " " "slot12"\t\t\t\t\t// Healthshot`,
+`bind " " "slot13"\t\t\t\t\t// Utility items`,
+`bind "t" "+spray_menu"\t\t\t\t\t// Rueda de grafitis`,
+``,
+`// ── Teclas de interfaz ────────────────────────────────────────`,
+``,
+`bind "tab" "+showscores"\t\t\t\t// Marcador`,
+`bind " " "+cl_show_team_equipment"\t\t\t// Mostrar equipo del equipo`,
+`bind "q"   "toggleradarscale"\t\t\t\t// Zoom del radar`,
+`bind " " "callvote"\t\t\t\t\t// Votaciones`,
+`bind " " "teammenu"\t\t\t\t\t// Elegir equipo`,
+`bind "|" "toggleconsole"\t\t\t\t// Consola de desarrollador`,
+``,
+`// ── Opciones de comunicación ────────────────────────────────────────`,
+``,
+`bind "n" "player_ping"\t\t\t\t\t// Ping del jugador`,
+`bind " " "radio"\t\t\t\t\t// Menu de radio`,
+`bind " " "radio1"\t\t\t\t\t// Radio: comandos de equipo`,
+`bind " " "radio2"\t\t\t\t\t// Radio: respuestas`,
+`bind " " "radio3"\t\t\t\t\t// Radio: reacciones`,
+`bind "enter" "messagemode2"\t\t\t\t// Chat de equipo`,
+`bind " " "messagemode"\t\t\t\t\t// Chat general`,
+`bind "mouse4" "+voicerecord"\t\t\t\t// Presionar para hablar`,
+`bind " " "voice_toggle_open_mic"\t\t\t// Alternar mic abierto / push-to-talk`,
+`bind " " "clutch_mode_toggle"\t\t\t\t// Activar/desactivar modo clutch`,
+``,
+`// ── Rueda de chat ────────────────────────────────────────`,
+``,
+`bind " " "+radialradio"\t\t\t\t\t// Rueda de chat rapido 1`,
+`bind " " "+radialradio2"\t\t\t\t// Rueda de chat rapido 2`,
+`bind " " "+radialradio3"\t\t\t\t// Rueda de chat rapido 3`,
+  ];
+
+  return lines.join('\n');
+}
+
+// ── COPY AUTOEXEC ────────────────────────────────────────────
+window.copyAutoexec = function() {
+  if (!window._generatedAutoexec) return;
+  navigator.clipboard.writeText(window._generatedAutoexec).then(() => {
+    const btn = document.querySelector('[onclick="copyAutoexec()"]');
+    if (btn) {
+      btn.innerHTML = '<i class="ti ti-check"></i> Copiado';
+      setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy"></i> Copiar'; }, 2000);
+    }
+  });
+};
+
+// ── BACK TO STEP 1 ───────────────────────────────────────────
+window.backToStep1 = function() {
+  // Reload to reset state cleanly
+  location.reload();
+};
+
+// ── GO TO STEP 3 (placeholder) ───────────────────────────────
+window.goToStep3 = function() {
+  document.getElementById('step-2').classList.remove('active');
+  document.getElementById('step-2').classList.add('done');
+  document.getElementById('step-3').classList.add('active');
+  alert('Paso 3 (Scripts) en construcción.');
 };
 </script>
 </body>
