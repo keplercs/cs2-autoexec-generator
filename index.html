@@ -70,111 +70,55 @@ body {
   flex-shrink: 0;
 }
 .logo-mark {
-  width: 28px;
-  height: 28px;
+  width: 28px; height: 28px;
   background: var(--or);
   border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: -0.5px;
+  font-size: 13px; font-weight: 600;
+  color: #fff; letter-spacing: -0.5px;
 }
-.logo-text {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--tx);
-  letter-spacing: 0.01em;
-}
+.logo-text { font-size: 13px; font-weight: 500; color: var(--tx); letter-spacing: 0.01em; }
 .logo-text span { color: var(--tx3); font-weight: 400; }
 
 /* ── STEPS BAR ──────────────────────────────────────────────── */
-.steps-wrap {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
+.steps-wrap { margin-left: auto; display: flex; align-items: center; gap: 0; }
 .step {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 14px;
-  height: 52px;
-  font-size: 12px;
-  color: var(--tx3);
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 14px; height: 52px;
+  font-size: 12px; color: var(--tx3);
   border-bottom: 2px solid transparent;
-  cursor: default;
-  white-space: nowrap;
-  transition: color 0.15s;
-  user-select: none;
+  cursor: default; white-space: nowrap;
+  transition: color 0.15s; user-select: none;
 }
 .step-n {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--s3);
-  border: 1px solid var(--b2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  font-weight: 600;
-  flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--s3); border: 1px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; flex-shrink: 0;
   transition: all 0.15s;
 }
-.step.active {
-  color: var(--or);
-  border-bottom-color: var(--or);
-}
-.step.active .step-n {
-  background: var(--or);
-  border-color: var(--or);
-  color: #fff;
-}
+.step.active { color: var(--or); border-bottom-color: var(--or); }
+.step.active .step-n { background: var(--or); border-color: var(--or); color: #fff; }
 .step.done { color: var(--tx3); }
-.step.done .step-n {
-  background: var(--s3);
-  border-color: var(--or-mid);
-  color: var(--or2);
-}
-.step-sep {
-  width: 20px;
-  height: 1px;
-  background: var(--b2);
-  flex-shrink: 0;
-}
+.step.done .step-n { background: var(--s3); border-color: var(--or-mid); color: var(--or2); }
+.step-sep { width: 20px; height: 1px; background: var(--b2); flex-shrink: 0; }
 
 /* ── MAIN CONTAINER ─────────────────────────────────────────── */
 .container {
-  width: 100%;
-  max-width: 680px;
-  padding: 40px 24px 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  width: 100%; max-width: 740px;
+  padding: 40px 24px 120px;
+  display: flex; flex-direction: column; gap: 24px;
 }
 
+/* Step panels */
+.step-panel { display: none; flex-direction: column; gap: 24px; }
+.step-panel.active { display: flex; }
+
 /* ── PAGE HEADER ────────────────────────────────────────────── */
-.page-hdr {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.page-hdr h1 {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.3px;
-  color: var(--tx);
-}
-.page-hdr p {
-  font-size: 13px;
-  color: var(--tx2);
-  line-height: 1.6;
-}
+.page-hdr { display: flex; flex-direction: column; gap: 6px; }
+.page-hdr h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; color: var(--tx); }
+.page-hdr p { font-size: 13px; color: var(--tx2); line-height: 1.6; }
 
 /* ── CARDS ──────────────────────────────────────────────────── */
 .card {
@@ -187,13 +131,9 @@ body {
   padding: 11px 16px;
   background: var(--s3);
   border-bottom: 1px solid var(--b1);
-  font-size: 11px;
-  color: var(--tx3);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-size: 11px; color: var(--tx3);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 6px;
 }
 .card-head i { font-size: 13px; }
 .card-body { padding: 20px; }
@@ -204,24 +144,16 @@ body {
   border: 1px solid var(--b2);
   border-radius: var(--r2);
   padding: 16px 18px;
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--tx3);
-  min-height: 72px;
-  position: relative;
+  font-family: var(--mono); font-size: 12px; line-height: 1.8;
+  color: var(--tx3); min-height: 72px; position: relative;
 }
 .terminal .prompt { color: var(--or); user-select: none; }
 .terminal .path-text { color: var(--tx2); }
 .terminal .path-found { color: var(--green); }
 .terminal .path-err { color: var(--red); }
 .terminal .cursor {
-  display: inline-block;
-  width: 7px;
-  height: 13px;
-  background: var(--or);
-  margin-left: 2px;
-  vertical-align: middle;
+  display: inline-block; width: 7px; height: 13px;
+  background: var(--or); margin-left: 2px; vertical-align: middle;
   animation: blink 1s step-end infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -229,86 +161,50 @@ body {
 
 /* ── IMPORT BUTTON ──────────────────────────────────────────── */
 .import-zone {
-  border: 1px dashed var(--b3);
-  border-radius: var(--r2);
+  border: 1px dashed var(--b3); border-radius: var(--r2);
   padding: 32px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  text-align: center;
-  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  text-align: center; cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
   background: var(--s2);
 }
-.import-zone:hover {
-  border-color: var(--or);
-  background: var(--or-glow);
-}
-.import-zone.loading {
-  pointer-events: none;
-  border-color: var(--or-mid);
-  background: var(--or-glow);
-}
+.import-zone:hover { border-color: var(--or); background: var(--or-glow); }
+.import-zone.loading { pointer-events: none; border-color: var(--or-mid); background: var(--or-glow); }
 .import-icon {
-  width: 52px;
-  height: 52px;
-  background: var(--or-dim);
-  border: 1px solid var(--or-mid);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 52px; height: 52px;
+  background: var(--or-dim); border: 1px solid var(--or-mid); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
 }
 .import-icon i { font-size: 26px; color: var(--or); }
 .import-title { font-size: 15px; font-weight: 500; color: var(--tx); }
 .import-sub { font-size: 12px; color: var(--tx3); line-height: 1.6; max-width: 380px; }
 .import-badge {
-  font-size: 11px;
-  font-family: var(--mono);
-  color: var(--tx3);
-  background: var(--s3);
-  border: 1px solid var(--b2);
-  border-radius: 4px;
-  padding: 3px 8px;
+  font-size: 11px; font-family: var(--mono); color: var(--tx3);
+  background: var(--s3); border: 1px solid var(--b2); border-radius: 4px; padding: 3px 8px;
 }
 
 /* ── BUTTONS ────────────────────────────────────────────────── */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 16px;
-  border-radius: var(--r);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--sans);
-  cursor: pointer;
-  border: none;
-  transition: all 0.12s;
-  text-decoration: none;
-  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: var(--r);
+  font-size: 13px; font-weight: 500; font-family: var(--sans);
+  cursor: pointer; border: none; transition: all 0.12s;
+  text-decoration: none; white-space: nowrap;
 }
 .btn i { font-size: 15px; }
 .btn-primary { background: var(--or); color: #fff; }
 .btn-primary:hover { background: var(--or2); }
 .btn-primary:disabled { background: var(--s4); color: var(--tx3); cursor: not-allowed; }
-.btn-ghost {
-  background: transparent;
-  color: var(--tx3);
-  border: 1px solid var(--b2);
-}
+.btn-ghost { background: transparent; color: var(--tx3); border: 1px solid var(--b2); }
 .btn-ghost:hover { color: var(--tx); border-color: var(--b3); }
+.btn-green { background: var(--green); color: #fff; }
+.btn-green:hover { background: #5bc97e; }
+.btn-green:disabled { background: var(--s4); color: var(--tx3); cursor: not-allowed; }
 
 /* ── INFO / WARN BOXES ──────────────────────────────────────── */
 .info-box {
-  display: flex;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: var(--r);
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--tx2);
+  display: flex; gap: 10px; padding: 12px 14px; border-radius: var(--r);
+  font-size: 12px; line-height: 1.6; color: var(--tx2);
 }
 .info-box i { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 .info-box.warn { background: var(--red-dim); border: 1px solid rgba(224,85,85,0.2); }
@@ -324,136 +220,58 @@ body {
 
 .acct-list { display: flex; flex-direction: column; gap: 8px; }
 .acct-card {
-  background: var(--s2);
-  border: 1px solid var(--b2);
-  border-radius: var(--r2);
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  cursor: pointer;
-  transition: border-color 0.12s, background 0.12s;
+  background: var(--s2); border: 1px solid var(--b2); border-radius: var(--r2);
+  padding: 14px 16px; display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: border-color 0.12s, background 0.12s;
 }
 .acct-card:hover { border-color: var(--b3); background: var(--s3); }
-.acct-card.selected {
-  border-color: var(--or);
-  background: var(--or-dim);
-}
+.acct-card.selected { border-color: var(--or); background: var(--or-dim); }
 .acct-card.no-cs2 { opacity: 0.55; cursor: default; }
 .acct-card.no-cs2:hover { border-color: var(--b2); background: var(--s2); }
-
 .acct-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--s4);
-  border: 1px solid var(--b2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--mono);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--tx3);
-  flex-shrink: 0;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--s4); border: 1px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--tx3); flex-shrink: 0;
 }
-.acct-card.selected .acct-avatar {
-  border-color: rgba(232,96,28,0.4);
-  color: var(--or);
-}
-
+.acct-card.selected .acct-avatar { border-color: rgba(232,96,28,0.4); color: var(--or); }
 .acct-info { flex: 1; min-width: 0; }
-.acct-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--tx);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.acct-meta {
-  font-size: 11px;
-  font-family: var(--mono);
-  color: var(--tx3);
-  margin-top: 3px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+.acct-name { font-size: 14px; font-weight: 500; color: var(--tx); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.acct-meta { font-size: 11px; font-family: var(--mono); color: var(--tx3); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
 .acct-meta span { display: flex; align-items: center; gap: 3px; }
 .acct-meta i { font-size: 12px; }
-
 .acct-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
 .badge {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-weight: 500;
-  font-family: var(--mono);
-  letter-spacing: 0.03em;
+  font-size: 10px; padding: 2px 8px; border-radius: 20px;
+  font-weight: 500; font-family: var(--mono); letter-spacing: 0.03em;
 }
 .badge-cs2 { background: var(--or-dim); border: 1px solid var(--or-mid); color: #e8a07a; }
 .badge-none { background: var(--s4); border: 1px solid var(--b2); color: var(--tx3); }
-.badge-selected {
-  background: var(--or);
-  color: #fff;
-  border: none;
-}
-.acct-files {
-  font-size: 10px;
-  color: var(--tx3);
-  font-family: var(--mono);
-}
+.badge-selected { background: var(--or); color: #fff; border: none; }
+.acct-files { font-size: 10px; color: var(--tx3); font-family: var(--mono); }
 
 /* ── CFG FILE LIST ──────────────────────────────────────────── */
-.cfg-files-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
+.cfg-files-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .cfg-file-row {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 10px;
-  background: var(--s3);
-  border-radius: var(--r);
-  border: 1px solid var(--b1);
+  display: flex; align-items: center; gap: 7px; padding: 7px 10px;
+  background: var(--s3); border-radius: var(--r); border: 1px solid var(--b1);
 }
 .cfg-file-row i { font-size: 13px; flex-shrink: 0; }
 .cfg-file-row i.found { color: var(--green); }
 .cfg-file-row i.missing { color: var(--tx3); }
-.cfg-file-name {
-  font-size: 11px;
-  font-family: var(--mono);
-  color: var(--tx2);
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.cfg-file-name { font-size: 11px; font-family: var(--mono); color: var(--tx2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cfg-file-row.missing .cfg-file-name { color: var(--tx3); }
 
 /* ── FOOTER ACTION ──────────────────────────────────────────── */
 .footer-action {
-  position: fixed;
-  bottom: 0;
-  left: 0; right: 0;
-  background: var(--s1);
-  border-top: 1px solid var(--b2);
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--s1); border-top: 1px solid var(--b2);
   padding: 14px 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: none; align-items: center; gap: 12px;
   z-index: 10;
-  display: none;
 }
 .footer-action.visible { display: flex; }
-.footer-hint {
-  font-size: 12px;
-  color: var(--tx3);
-  font-family: var(--mono);
-}
+.footer-hint { font-size: 12px; color: var(--tx3); font-family: var(--mono); }
 .footer-hint span { color: var(--tx2); }
 .footer-action .btn { margin-left: auto; }
 
@@ -464,27 +282,203 @@ body {
 /* ── SPINNER ────────────────────────────────────────────────── */
 .spinner {
   width: 18px; height: 18px;
-  border: 2px solid var(--b2);
-  border-top-color: var(--or);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  flex-shrink: 0;
+  border: 2px solid var(--b2); border-top-color: var(--or);
+  border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── DIVIDER ────────────────────────────────────────────────── */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--tx3);
-  font-size: 11px;
+.divider { display: flex; align-items: center; gap: 12px; color: var(--tx3); font-size: 11px; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--b2); }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 2 — PREVIEW
+══════════════════════════════════════════════════════════════ */
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stat-cell {
+  background: var(--s2); border: 1px solid var(--b2); border-radius: var(--r2);
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;
 }
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--b2);
+.stat-num { font-size: 22px; font-weight: 600; font-family: var(--mono); color: var(--or); }
+.stat-lbl { font-size: 11px; color: var(--tx3); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Section tabs */
+.section-tabs {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 14px 16px; background: var(--s3); border-bottom: 1px solid var(--b1);
+}
+.stab {
+  font-size: 11px; padding: 4px 10px; border-radius: 20px;
+  cursor: pointer; border: 1px solid var(--b2); background: transparent;
+  color: var(--tx3); font-family: var(--mono); transition: all 0.12s;
+  display: flex; align-items: center; gap: 5px;
+}
+.stab:hover { color: var(--tx2); border-color: var(--b3); }
+.stab.active { background: var(--or-dim); border-color: var(--or-mid); color: var(--or2); }
+.stab .cnt {
+  font-size: 9px; background: var(--b2); border-radius: 8px;
+  padding: 1px 5px; color: var(--tx3);
+}
+.stab.active .cnt { background: var(--or-mid); color: var(--or); }
+
+/* Convar table */
+.cv-table { width: 100%; border-collapse: collapse; }
+.cv-table tr { border-bottom: 1px solid var(--b1); }
+.cv-table tr:last-child { border-bottom: none; }
+.cv-table td { padding: 7px 12px; font-size: 12px; }
+.cv-key { font-family: var(--mono); color: var(--tx2); width: 50%; word-break: break-all; }
+.cv-val { font-family: var(--mono); color: var(--or2); text-align: right; }
+.cv-table tr:hover td { background: var(--b1); }
+
+/* Binds grid */
+.binds-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px; padding: 14px; }
+.bind-row {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--s3); border: 1px solid var(--b1); border-radius: var(--r); padding: 6px 10px;
+}
+.bind-key {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  background: var(--s4); border: 1px solid var(--b3); border-radius: 4px;
+  padding: 2px 7px; color: var(--tx); min-width: 36px; text-align: center; flex-shrink: 0;
+}
+.bind-placeholder { color: var(--tx3) !important; font-style: italic; }
+.bind-cmd { font-family: var(--mono); font-size: 11px; color: var(--tx2); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Autoexec preview */
+.code-preview {
+  background: #040404; border: none;
+  font-family: var(--mono); font-size: 11px; line-height: 1.7;
+  color: var(--tx2); padding: 16px; width: 100%; min-height: 320px;
+  resize: none; outline: none;
+  border-radius: 0;
+}
+.code-preview-wrap {
+  position: relative; overflow: hidden;
+  border-radius: 0 0 var(--r2) var(--r2);
+}
+.code-preview-actions {
+  padding: 10px 14px; background: var(--s3); border-top: 1px solid var(--b1);
+  display: flex; align-items: center; gap: 8px;
+}
+.lines-count { font-size: 11px; color: var(--tx3); font-family: var(--mono); }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 3 — SCRIPTS
+══════════════════════════════════════════════════════════════ */
+
+.scripts-grid { display: flex; flex-direction: column; gap: 10px; }
+.script-card {
+  background: var(--s2); border: 1px solid var(--b2); border-radius: var(--r2);
+  transition: border-color 0.12s;
+}
+.script-card.enabled { border-color: var(--or-mid); }
+.script-card-head {
+  padding: 14px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer;
+}
+.script-card-head:hover .script-name { color: var(--tx); }
+.script-toggle {
+  width: 36px; height: 20px; border-radius: 10px;
+  background: var(--s4); border: 1px solid var(--b3);
+  position: relative; flex-shrink: 0; transition: all 0.18s; cursor: pointer;
+}
+.script-toggle::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 14px; height: 14px; border-radius: 50%; background: var(--tx3);
+  transition: all 0.18s;
+}
+.script-card.enabled .script-toggle { background: var(--or); border-color: var(--or); }
+.script-card.enabled .script-toggle::after { left: 18px; background: #fff; }
+.script-icon { font-size: 18px; color: var(--tx3); flex-shrink: 0; }
+.script-card.enabled .script-icon { color: var(--or); }
+.script-info { flex: 1; min-width: 0; }
+.script-name { font-size: 13px; font-weight: 500; color: var(--tx2); transition: color 0.12s; }
+.script-desc { font-size: 11px; color: var(--tx3); margin-top: 2px; line-height: 1.5; }
+.script-body {
+  display: none; padding: 0 16px 16px;
+  border-top: 1px solid var(--b1); margin-top: 0; padding-top: 14px;
+}
+.script-card.enabled .script-body { display: block; }
+.script-code {
+  background: #040404; border: 1px solid var(--b2); border-radius: var(--r);
+  font-family: var(--mono); font-size: 11px; line-height: 1.7; color: var(--tx3);
+  padding: 12px 14px; white-space: pre; overflow-x: auto; max-height: 200px; overflow-y: auto;
+}
+.script-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.script-option { display: flex; align-items: center; gap: 8px; }
+.script-option label { font-size: 12px; color: var(--tx2); cursor: pointer; }
+.script-option input[type="text"] {
+  background: var(--s3); border: 1px solid var(--b2); border-radius: var(--r);
+  color: var(--tx); font-family: var(--mono); font-size: 12px; padding: 5px 9px;
+  outline: none; flex: 1; transition: border-color 0.12s;
+}
+.script-option input[type="text"]:focus { border-color: var(--or-mid); }
+
+/* Crosshair presets */
+.xhair-presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-bottom: 12px; }
+.xhair-preset {
+  background: var(--s3); border: 1px solid var(--b2); border-radius: var(--r);
+  padding: 10px 12px; cursor: pointer; transition: all 0.12s; text-align: left;
+}
+.xhair-preset:hover { border-color: var(--b3); background: var(--s4); }
+.xhair-preset.selected { border-color: var(--or); background: var(--or-dim); }
+.xhair-preview { margin-bottom: 6px; height: 24px; display: flex; align-items: center; justify-content: center; }
+.xhair-label { font-size: 11px; font-family: var(--mono); color: var(--tx2); }
+.xhair-preset.selected .xhair-label { color: var(--or2); }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 4 — EXPORTAR
+══════════════════════════════════════════════════════════════ */
+
+.export-options { display: flex; flex-direction: column; gap: 10px; }
+.export-opt {
+  background: var(--s2); border: 1px solid var(--b2); border-radius: var(--r2);
+  padding: 18px 20px; display: flex; align-items: flex-start; gap: 16px;
+  cursor: pointer; transition: border-color 0.12s;
+}
+.export-opt:hover { border-color: var(--b3); }
+.export-opt.selected { border-color: var(--or); background: var(--or-dim); }
+.export-opt-icon {
+  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--s3); border: 1px solid var(--b2); font-size: 20px; color: var(--tx3);
+}
+.export-opt.selected .export-opt-icon { background: var(--or-dim); border-color: var(--or-mid); color: var(--or); }
+.export-opt-info { flex: 1; }
+.export-opt-title { font-size: 14px; font-weight: 500; color: var(--tx); }
+.export-opt-desc { font-size: 12px; color: var(--tx3); margin-top: 3px; line-height: 1.5; }
+.export-opt.selected .export-opt-title { color: var(--or2); }
+.export-opt-check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--b3); transition: all 0.12s; }
+.export-opt.selected .export-opt-check { border-color: var(--or); background: var(--or); }
+
+.path-display {
+  background: #040404; border: 1px solid var(--b2); border-radius: var(--r);
+  font-family: var(--mono); font-size: 11px; padding: 10px 14px; color: var(--tx2);
+  word-break: break-all;
+}
+.path-display .pth-arrow { color: var(--or); margin: 0 4px; }
+
+.export-final {
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  padding: 40px 24px; text-align: center;
+}
+.export-final.done { display: none; }
+.export-done {
+  display: none; flex-direction: column; align-items: center; gap: 16px;
+  padding: 40px 24px; text-align: center;
+}
+.export-done.visible { display: flex; }
+.done-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--green-dim); border: 2px solid rgba(76,175,110,0.35);
+  display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--green);
+}
+.done-title { font-size: 20px; font-weight: 600; color: var(--tx); }
+.done-sub { font-size: 13px; color: var(--tx2); line-height: 1.6; max-width: 400px; }
+.done-cmd {
+  background: #040404; border: 1px solid var(--b2); border-radius: var(--r);
+  font-family: var(--mono); font-size: 13px; padding: 10px 18px; color: var(--or2);
 }
 </style>
 </head>
@@ -496,36 +490,30 @@ body {
     <div class="logo-mark">cs2</div>
     <span class="logo-text">Autoexec Generator <span>/ beta</span></span>
   </div>
-
   <div class="steps-wrap">
-    <div class="step active" id="step-1">
-      <span class="step-n">1</span> Importar
-    </div>
+    <div class="step active" id="step-1"><span class="step-n">1</span> Importar</div>
     <div class="step-sep"></div>
-    <div class="step" id="step-2">
-      <span class="step-n">2</span> Preview
-    </div>
+    <div class="step" id="step-2"><span class="step-n">2</span> Preview</div>
     <div class="step-sep"></div>
-    <div class="step" id="step-3">
-      <span class="step-n">3</span> Scripts
-    </div>
+    <div class="step" id="step-3"><span class="step-n">3</span> Scripts</div>
     <div class="step-sep"></div>
-    <div class="step" id="step-4">
-      <span class="step-n">4</span> Exportar
-    </div>
+    <div class="step" id="step-4"><span class="step-n">4</span> Exportar</div>
   </div>
 </header>
 
 <!-- ── MAIN ────────────────────────────────────────────────── -->
 <main class="container">
 
-  <!-- Page header -->
+<!-- ════════════════════════════════════════════════════════════
+     PASO 1 — IMPORTAR
+════════════════════════════════════════════════════════════ -->
+<div class="step-panel active" id="panel-1">
+
   <div class="page-hdr">
     <h1>Importar configuración de Steam</h1>
     <p>Selecciona tu carpeta de Steam. El generador detectará automáticamente todas las cuentas con datos de CS2 y leerá tus archivos <code style="font-family:var(--mono);color:var(--or);font-size:11px">.vcfg</code> sin necesidad de subirlos a ningún servidor.</p>
   </div>
 
-  <!-- Browser compat warning -->
   <div class="info-box warn" id="compat-warn">
     <i class="ti ti-alert-triangle"></i>
     <div>
@@ -535,16 +523,12 @@ body {
     </div>
   </div>
 
-  <!-- Terminal path detector -->
   <div class="terminal" id="terminal">
     <span class="line"><span class="prompt">steam&gt; </span><span class="path-text" id="terminal-text">esperando selección de carpeta...</span><span class="cursor" id="cursor"></span></span>
   </div>
 
-  <!-- Import zone -->
   <div class="import-zone" id="import-zone" onclick="selectSteamFolder()">
-    <div class="import-icon">
-      <i class="ti ti-folder-open" id="import-icon-i"></i>
-    </div>
+    <div class="import-icon"><i class="ti ti-folder-open" id="import-icon-i"></i></div>
     <div class="import-title" id="import-title">Seleccionar carpeta Steam</div>
     <div class="import-sub" id="import-sub">
       Selecciona la carpeta raíz de Steam — por ejemplo
@@ -554,7 +538,6 @@ body {
     <span class="import-badge" id="import-badge">Chrome / Edge — sin instalación, sin uploads</span>
   </div>
 
-  <!-- Tip -->
   <div class="info-box tip">
     <i class="ti ti-info-circle"></i>
     <div>
@@ -563,44 +546,305 @@ body {
     </div>
   </div>
 
-  <!-- Accounts section (hidden until Steam folder is selected) -->
   <div id="accounts-section">
-
     <div class="divider">cuentas detectadas</div>
-
-    <!-- Account list -->
     <div class="acct-list" id="acct-list"></div>
-
-    <!-- Selected account cfg files -->
     <div class="card" id="cfg-files-card" style="display:none">
-      <div class="card-head">
-        <i class="ti ti-files"></i>
-        Archivos de configuración encontrados
-      </div>
+      <div class="card-head"><i class="ti ti-files"></i> Archivos de configuración encontrados</div>
       <div class="card-body">
         <div class="cfg-files-grid" id="cfg-files-grid"></div>
       </div>
     </div>
-
   </div>
+
+</div><!-- /panel-1 -->
+
+
+<!-- ════════════════════════════════════════════════════════════
+     PASO 2 — PREVIEW
+════════════════════════════════════════════════════════════ -->
+<div class="step-panel" id="panel-2">
+
+  <div class="page-hdr">
+    <h1>Preview del Autoexec</h1>
+    <p>Tus valores reales extraídos de los archivos <code style="font-family:var(--mono);color:var(--or);font-size:11px">.vcfg</code>. Revisa cada sección antes de continuar.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row" id="preview-stats">
+    <div class="stat-cell"><div class="stat-num" id="stat-convars">—</div><div class="stat-lbl">ConVars</div></div>
+    <div class="stat-cell"><div class="stat-num" id="stat-binds">—</div><div class="stat-lbl">Binds</div></div>
+    <div class="stat-cell"><div class="stat-num" id="stat-sections">—</div><div class="stat-lbl">Secciones</div></div>
+    <div class="stat-cell"><div class="stat-num" id="stat-lines">—</div><div class="stat-lbl">Líneas</div></div>
+  </div>
+
+  <!-- Section viewer -->
+  <div class="card" id="section-viewer">
+    <div class="section-tabs" id="section-tabs">
+      <!-- filled by JS -->
+    </div>
+    <div id="section-content" style="max-height:420px;overflow-y:auto;">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- Raw preview -->
+  <div class="card">
+    <div class="card-head"><i class="ti ti-file-code"></i> autoexec.cfg generado</div>
+    <div class="code-preview-wrap">
+      <textarea class="code-preview" id="code-preview" readonly spellcheck="false"></textarea>
+      <div class="code-preview-actions">
+        <span class="lines-count" id="lines-count">0 líneas</span>
+        <button class="btn btn-ghost" onclick="copyAutoexec()" style="margin-left:auto">
+          <i class="ti ti-copy"></i> Copiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /panel-2 -->
+
+
+<!-- ════════════════════════════════════════════════════════════
+     PASO 3 — SCRIPTS
+════════════════════════════════════════════════════════════ -->
+<div class="step-panel" id="panel-3">
+
+  <div class="page-hdr">
+    <h1>Scripts opcionales</h1>
+    <p>Activa los módulos que quieras incluir en tu Autoexec. Cada uno añade alias y binds a los que ya tienes.</p>
+  </div>
+
+  <div class="scripts-grid" id="scripts-grid">
+
+    <!-- demo.cfg -->
+    <div class="script-card" id="sc-demo">
+      <div class="script-card-head" onclick="toggleScript('demo')">
+        <div class="script-toggle"></div>
+        <i class="ti ti-video script-icon"></i>
+        <div class="script-info">
+          <div class="script-name">demo.cfg</div>
+          <div class="script-desc">Controles de reproducción de demos — play/pausa, velocidad, skip ronda, slow-mo.</div>
+        </div>
+      </div>
+      <div class="script-body">
+        <div class="script-options">
+          <div class="script-option">
+            <label>Tecla play/pausa</label>
+            <input type="text" id="demo-key-pause" value="kp_5" style="max-width:100px">
+          </div>
+          <div class="script-option">
+            <label>Tecla skip ronda</label>
+            <input type="text" id="demo-key-skip" value="kp_plus" style="max-width:100px">
+          </div>
+        </div>
+        <div class="script-code" id="demo-code">// generando...</div>
+      </div>
+    </div>
+
+    <!-- prac.cfg -->
+    <div class="script-card" id="sc-prac">
+      <div class="script-card-head" onclick="toggleScript('prac')">
+        <div class="script-toggle"></div>
+        <i class="ti ti-map-pin script-icon"></i>
+        <div class="script-info">
+          <div class="script-name">prac.cfg</div>
+          <div class="script-desc">Modo práctica offline — sv_cheats, bots, impactos visibles, granadas infinitas, respawn.</div>
+        </div>
+      </div>
+      <div class="script-body">
+        <div class="script-options">
+          <div class="script-option">
+            <label>Tecla toggle prac</label>
+            <input type="text" id="prac-key-toggle" value="kp_end" style="max-width:100px">
+          </div>
+        </div>
+        <div class="script-code" id="prac-code">// generando...</div>
+      </div>
+    </div>
+
+    <!-- Crosshair presets -->
+    <div class="script-card" id="sc-xhair">
+      <div class="script-card-head" onclick="toggleScript('xhair')">
+        <div class="script-toggle"></div>
+        <i class="ti ti-crosshair script-icon"></i>
+        <div class="script-info">
+          <div class="script-name">Presets de crosshair</div>
+          <div class="script-desc">Binds para cambiar entre distintos crosshairs al vuelo con una tecla.</div>
+        </div>
+      </div>
+      <div class="script-body">
+        <div style="font-size:11px;color:var(--tx3);margin-bottom:10px">Selecciona el preset que quieras como crosshair de combate base:</div>
+        <div class="xhair-presets" id="xhair-presets">
+          <!-- filled by JS -->
+        </div>
+        <div class="script-options">
+          <div class="script-option">
+            <label>Tecla ciclar presets</label>
+            <input type="text" id="xhair-cycle-key" value="kp_ins" style="max-width:100px">
+          </div>
+        </div>
+        <div class="script-code" id="xhair-code">// generando...</div>
+      </div>
+    </div>
+
+    <!-- HUD modes -->
+    <div class="script-card" id="sc-hud">
+      <div class="script-card-head" onclick="toggleScript('hud')">
+        <div class="script-toggle"></div>
+        <i class="ti ti-layout script-icon"></i>
+        <div class="script-info">
+          <div class="script-name">Modos de HUD</div>
+          <div class="script-desc">Alterna entre HUD completo, HUD mínimo (solo HP/munición) y sin HUD con una tecla.</div>
+        </div>
+      </div>
+      <div class="script-body">
+        <div class="script-options">
+          <div class="script-option">
+            <label>Tecla ciclar HUD</label>
+            <input type="text" id="hud-cycle-key" value="kp_del" style="max-width:100px">
+          </div>
+        </div>
+        <div class="script-code" id="hud-code">// generando...</div>
+      </div>
+    </div>
+
+    <!-- Volume aliases -->
+    <div class="script-card" id="sc-vol">
+      <div class="script-card-head" onclick="toggleScript('vol')">
+        <div class="script-toggle"></div>
+        <i class="ti ti-volume script-icon"></i>
+        <div class="script-info">
+          <div class="script-name">Aliases de volumen</div>
+          <div class="script-desc">Rueda del mouse sube/baja volumen maestro mientras mantienes una tecla.</div>
+        </div>
+      </div>
+      <div class="script-body">
+        <div class="script-options">
+          <div class="script-option">
+            <label>Tecla modificadora</label>
+            <input type="text" id="vol-hold-key" value="alt" style="max-width:100px">
+          </div>
+        </div>
+        <div class="script-code" id="vol-code">// generando...</div>
+      </div>
+    </div>
+
+  </div><!-- /scripts-grid -->
+
+  <div class="info-box tip">
+    <i class="ti ti-info-circle"></i>
+    <div>Los scripts opcionales se añaden <strong>al final</strong> del Autoexec. <code style="font-family:var(--mono);color:var(--or);font-size:11px">demo.cfg</code> y <code style="font-family:var(--mono);color:var(--or);font-size:11px">prac.cfg</code> también se generan como archivos separados en la carpeta de exportación.</div>
+  </div>
+
+</div><!-- /panel-3 -->
+
+
+<!-- ════════════════════════════════════════════════════════════
+     PASO 4 — EXPORTAR
+════════════════════════════════════════════════════════════ -->
+<div class="step-panel" id="panel-4">
+
+  <div class="page-hdr">
+    <h1>Exportar Autoexec</h1>
+    <p>Elige dónde guardar el archivo generado.</p>
+  </div>
+
+  <div id="export-main">
+    <div class="export-options">
+
+      <div class="export-opt selected" id="eopt-picker" onclick="selectExportOpt('picker')">
+        <div class="export-opt-icon"><i class="ti ti-folder-check"></i></div>
+        <div class="export-opt-info">
+          <div class="export-opt-title">Escribir directo a game/csgo/cfg/</div>
+          <div class="export-opt-desc">Usa <code style="font-family:var(--mono);font-size:10px">showSaveFilePicker()</code> para guardar el archivo exactamente donde CS2 lo necesita. Requiere que Steam esté instalado en la ruta estándar o que selecciones la carpeta manualmente.</div>
+        </div>
+        <div class="export-opt-check"></div>
+      </div>
+
+      <div class="export-opt" id="eopt-download" onclick="selectExportOpt('download')">
+        <div class="export-opt-icon"><i class="ti ti-download"></i></div>
+        <div class="export-opt-info">
+          <div class="export-opt-title">Descargar como archivo</div>
+          <div class="export-opt-desc">Descarga <code style="font-family:var(--mono);font-size:10px">autoexec.cfg</code> a tu carpeta de Descargas. Luego muévelo manualmente a <code style="font-family:var(--mono);font-size:10px">game/csgo/cfg/</code>.</div>
+        </div>
+        <div class="export-opt-check"></div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:16px" id="export-path-hint">
+      <div class="card-head" style="border-radius:var(--r) var(--r) 0 0;display:flex"><i class="ti ti-route"></i> Ruta destino detectada</div>
+      <div class="path-display" style="border-radius:0 0 var(--r) var(--r);border-top:none">
+        <span style="color:var(--tx3)">C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg</span>
+        <span class="pth-arrow">→</span>
+        <span style="color:var(--or)">autoexec.cfg</span>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="info-box tip">
+        <i class="ti ti-terminal"></i>
+        <div>
+          Asegúrate de que tu launch option incluya <code style="font-family:var(--mono);color:var(--or)">+exec autoexec</code> para que CS2 cargue el archivo al arrancar.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;display:flex;gap:10px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="goToStep(3)">
+        <i class="ti ti-arrow-left"></i> Volver a Scripts
+      </button>
+      <button class="btn btn-green" id="btn-export" onclick="doExport()">
+        <i class="ti ti-file-export"></i> Exportar Autoexec
+      </button>
+    </div>
+  </div>
+
+  <!-- Done state -->
+  <div class="export-done" id="export-done">
+    <div class="done-icon"><i class="ti ti-check"></i></div>
+    <div class="done-title">¡Autoexec exportado!</div>
+    <div class="done-sub" id="done-sub">El archivo fue guardado correctamente. Reinicia CS2 o escribe <code style="font-family:var(--mono);color:var(--or)">exec autoexec</code> en la consola para cargarlo.</div>
+    <div class="done-cmd">exec autoexec</div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn btn-ghost" onclick="goToStep(1);resetAll()">
+        <i class="ti ti-refresh"></i> Nueva cuenta
+      </button>
+      <button class="btn btn-ghost" onclick="doExport()">
+        <i class="ti ti-download"></i> Exportar de nuevo
+      </button>
+    </div>
+  </div>
+
+</div><!-- /panel-4 -->
 
 </main>
 
 <!-- ── FOOTER ACTION ────────────────────────────────────────── -->
 <div class="footer-action" id="footer-action">
-  <div class="footer-hint">
-    Cuenta seleccionada: <span id="footer-name">—</span>
-  </div>
-  <button class="btn btn-ghost" onclick="resetSelection()">
-    <i class="ti ti-refresh"></i> Cambiar carpeta
-  </button>
-  <button class="btn btn-primary" id="btn-next" disabled onclick="goToStep2()">
+  <div class="footer-hint">Cuenta: <span id="footer-name">—</span></div>
+  <button class="btn btn-ghost" onclick="resetSelection()"><i class="ti ti-refresh"></i> Cambiar</button>
+  <button class="btn btn-primary" id="btn-next" disabled onclick="goToPreview()">
     Continuar al preview <i class="ti ti-arrow-right"></i>
   </button>
 </div>
 
 <script type="module">
-// ── COMPAT CHECK ──────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════
+let steamDirHandle = null;
+let accounts       = [];
+let selectedAcct   = null;
+let parsedResult   = null;  // { autoexec, categorized, bindings, allConVars, stats }
+let enabledScripts = {};
+let exportMode     = 'picker';
+let currentSection = 'binds';
+
+// ════════════════════════════════════════════════════════════
+// COMPAT CHECK
+// ════════════════════════════════════════════════════════════
 const hasFS = 'showDirectoryPicker' in window;
 if (!hasFS) {
   document.getElementById('compat-warn').classList.add('visible');
@@ -608,37 +852,30 @@ if (!hasFS) {
   document.getElementById('import-zone').style.pointerEvents = 'none';
 }
 
-// ── STATE ─────────────────────────────────────────────────────
-let steamDirHandle = null;
-let accounts       = [];
-let selectedAcct   = null;
-
-// ── STEAM ID MATH (no API) ───────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// STEAM ID MATH
+// ════════════════════════════════════════════════════════════
 const UNIVERSE = 76561197960265728n;
-
 function id3ToId64(id3) { return String(BigInt(id3) + UNIVERSE); }
-function id64ToId3(id64){ return Number(BigInt(id64) - UNIVERSE); }
+function steamIdString(id3) { const w = id3 & 1, v = (id3 - w) / 2; return `STEAM_0:${w}:${v}`; }
 
-function steamIdString(id3) {
-  const w = id3 & 1, v = (id3 - w) / 2;
-  return `STEAM_0:${w}:${v}`;
-}
-
-// ── VDF PARSER (minimal, for localconfig.vdf) ────────────────
-function parseVDF(src) {
+// ════════════════════════════════════════════════════════════
+// VDF PARSER (minimal, for localconfig.vdf)
+// ════════════════════════════════════════════════════════════
+function parseVDFSimple(src) {
   const tokens = [];
   let i = 0;
   while (i < src.length) {
     const c = src[i];
-    if (/\s/.test(c))  { i++; continue; }
+    if (/\s/.test(c)) { i++; continue; }
     if (c === '/' && src[i+1] === '/') { while (i < src.length && src[i] !== '\n') i++; continue; }
-    if (c === '{')     { tokens.push('OPEN');  i++; continue; }
-    if (c === '}')     { tokens.push('CLOSE'); i++; continue; }
+    if (c === '{') { tokens.push('OPEN');  i++; continue; }
+    if (c === '}') { tokens.push('CLOSE'); i++; continue; }
     if (c === '"') {
       let s = ''; i++;
       while (i < src.length) {
         if (src[i] === '\\' && i+1 < src.length) { s += src[i+1]; i += 2; continue; }
-        if (src[i] === '"')  { i++; break; }
+        if (src[i] === '"') { i++; break; }
         s += src[i++];
       }
       tokens.push(s);
@@ -682,11 +919,330 @@ function extractProfile(vdf) {
       if (typeof v === 'object') walk(v, d+1);
     }
   }
-  walk(parseVDF(vdf));
+  walk(parseVDFSimple(vdf));
   return p;
 }
 
-// ── CS2 CONFIG FILES ──────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// FULL VDF PARSER (for .vcfg files)
+// ════════════════════════════════════════════════════════════
+function tokenizeVDF(src) {
+  const tokens = [];
+  let i = 0; const len = src.length;
+  while (i < len) {
+    const ch = src[i];
+    if (/\s/.test(ch)) { i++; continue; }
+    if (ch === '/' && src[i+1] === '/') { while (i < len && src[i] !== '\n') i++; continue; }
+    if (ch === '/' && src[i+1] === '*') { i += 2; while (i < len-1 && !(src[i]==='*'&&src[i+1]==='/')) i++; i += 2; continue; }
+    if (ch === '{' || ch === '}') { tokens.push({ type: ch === '{'?'OPEN':'CLOSE', value: ch }); i++; continue; }
+    if (ch === '"') {
+      let str = ''; i++;
+      while (i < len) {
+        if (src[i] === '\\' && i+1 < len) { const e=src[i+1]; if(e==='"')str+='"'; else if(e==='\\')str+='\\'; else if(e==='n')str+='\n'; else str+=e; i+=2; continue; }
+        if (src[i] === '"') { i++; break; }
+        str += src[i++];
+      }
+      tokens.push({ type: 'STRING', value: str }); continue;
+    }
+    let word = '';
+    while (i < len && !/[\s{}"\/]/.test(src[i])) word += src[i++];
+    if (word) tokens.push({ type: 'STRING', value: word });
+  }
+  return tokens;
+}
+
+function parseVDFTokens(tokens) {
+  let pos = 0;
+  function parseObj() {
+    const obj = {};
+    while (pos < tokens.length) {
+      const tok = tokens[pos];
+      if (tok.type === 'CLOSE') { pos++; return obj; }
+      if (tok.type !== 'STRING') { pos++; continue; }
+      const key = tok.value; pos++;
+      if (pos >= tokens.length) break;
+      const next = tokens[pos];
+      let value;
+      if (next.type === 'OPEN') { pos++; value = parseObj(); }
+      else if (next.type === 'STRING') { value = next.value; pos++; }
+      else { continue; }
+      if (key in obj) {
+        if (!Array.isArray(obj[key])) obj[key] = [obj[key]];
+        obj[key].push(value);
+      } else { obj[key] = value; }
+    }
+    return obj;
+  }
+  const root = {};
+  while (pos < tokens.length) {
+    if (tokens[pos].type !== 'STRING') { pos++; continue; }
+    const key = tokens[pos].value; pos++;
+    if (pos >= tokens.length) break;
+    const next = tokens[pos];
+    if (next.type === 'OPEN') { pos++; root[key] = parseObj(); }
+    else if (next.type === 'STRING') { root[key] = next.value; pos++; }
+  }
+  return root;
+}
+
+function parseVDF(src) { return parseVDFTokens(tokenizeVDF(src)); }
+
+function extractBindings(vcfgContent) {
+  const parsed = parseVDF(vcfgContent);
+  const bindings = {};
+  function find(obj) {
+    if (typeof obj !== 'object' || obj === null) return;
+    if ('bindings' in obj && typeof obj.bindings === 'object') { Object.assign(bindings, obj.bindings); return; }
+    for (const v of Object.values(obj)) if (typeof v === 'object') find(v);
+  }
+  find(parsed);
+  return bindings;
+}
+
+function extractConVars(vcfgContent) {
+  const parsed = parseVDF(vcfgContent);
+  const convars = {};
+  function flatten(obj, depth=0) {
+    if (typeof obj !== 'object' || obj === null) return;
+    for (const [k, v] of Object.entries(obj)) {
+      if (typeof v === 'string') convars[k] = v;
+      else if (typeof v === 'object' && depth < 4) flatten(v, depth+1);
+    }
+  }
+  flatten(parsed);
+  return convars;
+}
+
+function extractVideoSettings(videoTxtContent) {
+  const parsed = parseVDF(videoTxtContent);
+  const settings = {};
+  function flatten(obj) {
+    if (!obj || typeof obj !== 'object') return;
+    for (const [k, v] of Object.entries(obj)) {
+      if (typeof v === 'string') settings[k] = v;
+      else flatten(v);
+    }
+  }
+  flatten(parsed);
+  return settings;
+}
+
+// ════════════════════════════════════════════════════════════
+// CONVAR CATEGORIZER
+// ════════════════════════════════════════════════════════════
+const CONVAR_CATEGORIES = {
+  crosshair: ['cl_crosshairstyle','cl_crosshairsize','cl_crosshairgap','cl_crosshairthickness','cl_crosshairalpha','cl_crosshaircolor','cl_crosshaircolor_r','cl_crosshaircolor_g','cl_crosshaircolor_b','cl_crosshairdot','cl_crosshair_t','cl_crosshair_drawoutline','cl_crosshair_outlinethickness','cl_crosshairusealpha','cl_crosshairgap_useweaponvalue','cl_crosshair_recoil','cl_crosshair_dynamic_maxdist_splitratio','cl_crosshair_dynamic_splitalpha_innermod','cl_crosshair_dynamic_splitalpha_outermod','cl_crosshair_dynamic_splitdist','cl_crosshair_sniper_show_normal_inaccuracy','cl_crosshair_sniper_width','cl_crosshair_friendly_warning'],
+  mouse:     ['sensitivity','m_rawinput','m_mouseaccel1','m_mouseaccel2','m_customaccel','m_customaccel_exponent','m_customaccel_max','m_customaccel_scale','m_pitch','m_yaw','zoom_sensitivity_ratio_mouse','cl_debounce_zoom'],
+  viewmodel: ['viewmodel_fov','viewmodel_offset_x','viewmodel_offset_y','viewmodel_offset_z','viewmodel_presetpos','cl_prefer_lefthanded','cl_righthand','viewmodel_recoil','cl_bob_lower_amt','cl_bobamt_lat','cl_bobamt_vert','cl_bobcycle'],
+  hud:       ['cl_hud_color','cl_hud_background_alpha','hud_scaling','cl_hud_radar_scale','cl_hud_playercount_pos','cl_hud_playercount_showcount','cl_showloadout','cl_draw_only_deathnotices','cl_drawhud','safezonex','safezoney'],
+  radar:     ['cl_radar_scale','cl_radar_always_centered','cl_radar_rotate','cl_radar_square_with_scoreboard','cl_radar_icon_scale_min','cl_hud_radar_scale','cl_teamid_overhead_always'],
+  network:   ['rate','cl_cmdrate','cl_updaterate','cl_interp','cl_interp_ratio','cl_lagcompensation','net_client_steamdatagram_enable_override'],
+  audio:     ['volume','voice_scale','snd_mixahead','snd_headphone_pan_exponent','snd_headphone_pan_radial_weight','snd_musicvolume','snd_musicvolume_multiplier_inoverlay','snd_deathcamera_volume','snd_roundstart_volume','snd_roundend_volume','snd_tensecond_volume','snd_mvp_volume','cl_clutch_mode'],
+  fps:       ['fps_max','fps_max_ui','fps_max_shadow_deferred','r_dynamic_lighting','r_lowlatency','mat_monitorgamma','mat_monitorgamma_tv_enabled'],
+  gameplay:  ['cl_autohelp','cl_autobuy','cl_rebuy','cl_color','cl_dm_buyrandomweapons','player_nevershow_communityservermessage','cl_show_clan_in_death_notice','cl_teamid_overhead_always','cl_disable_round_end_report'],
+};
+
+const SECTION_LABELS = {
+  crosshair:'CROSSHAIR', mouse:'MOUSE', viewmodel:'VIEWMODEL', hud:'HUD',
+  radar:'RADAR', network:'NETWORK', audio:'AUDIO', fps:'FPS / PERFORMANCE', gameplay:'GAMEPLAY',
+};
+
+function categorizeConVars(convars) {
+  const result = {}; const assigned = new Set();
+  for (const [cat, keys] of Object.entries(CONVAR_CATEGORIES)) {
+    result[cat] = {};
+    for (const key of keys) { if (key in convars) { result[cat][key] = convars[key]; assigned.add(key); } }
+  }
+  result.uncategorized = {};
+  for (const [k, v] of Object.entries(convars)) { if (!assigned.has(k)) result.uncategorized[k] = v; }
+  return result;
+}
+
+// ════════════════════════════════════════════════════════════
+// AUTOEXEC GENERATOR
+// ════════════════════════════════════════════════════════════
+function generateAutoexec({ categorized={}, bindings={}, scriptBlocks=[], options={} }) {
+  const { includeUncat=true, addComments=true, execOnSave=true } = options;
+  const lines = [];
+  const now = new Date().toISOString().split('T')[0];
+
+  lines.push('// ═══════════════════════════════════════════');
+  lines.push('// CS2 AUTOEXEC.CFG');
+  lines.push(`// Generated: ${now} via CS2 Autoexec Generator`);
+  lines.push('// Place in: game/csgo/cfg/autoexec.cfg');
+  lines.push('// Launch option: +exec autoexec');
+  lines.push('// ═══════════════════════════════════════════');
+  lines.push('');
+
+  for (const [section, label] of Object.entries(SECTION_LABELS)) {
+    const vars = categorized[section];
+    if (!vars || Object.keys(vars).length === 0) continue;
+    if (addComments) lines.push(`// ── ${label} ${'─'.repeat(Math.max(0,40-label.length))}`);
+    for (const [k, v] of Object.entries(vars)) {
+      const val = /\s/.test(v) ? `"${v}"` : v;
+      lines.push(`${k} ${val}`);
+    }
+    lines.push('');
+  }
+
+  if (includeUncat && categorized.uncategorized) {
+    const extra = Object.entries(categorized.uncategorized);
+    if (extra.length > 0) {
+      if (addComments) lines.push('// ── EXTRA ──────────────────────────────────');
+      for (const [k, v] of extra) { const val = /\s/.test(v)?`"${v}"`:v; lines.push(`${k} ${val}`); }
+      lines.push('');
+    }
+  }
+
+  const bindEntries = Object.entries(bindings);
+  if (bindEntries.length > 0) {
+    if (addComments) lines.push('// ── BINDS ───────────────────────────────────');
+    for (const [key, cmd] of bindEntries) {
+      if (!cmd || cmd.trim() === '') continue; // skip empty placeholders
+      const cleanCmd = cmd.replace(/^"|"$/g,'');
+      lines.push(`bind "${key}" "${cleanCmd}"`);
+    }
+    lines.push('');
+  }
+
+  // Append optional script blocks
+  for (const block of scriptBlocks) {
+    if (block && block.trim()) {
+      lines.push(block);
+      lines.push('');
+    }
+  }
+
+  if (addComments) lines.push('// ── END ─────────────────────────────────────');
+  if (execOnSave) lines.push('host_writeconfig');
+
+  return lines.join('\n');
+}
+
+// ════════════════════════════════════════════════════════════
+// SCRIPT GENERATORS
+// ════════════════════════════════════════════════════════════
+function genDemoCfg() {
+  const pause  = document.getElementById('demo-key-pause').value.trim() || 'kp_5';
+  const skip   = document.getElementById('demo-key-skip').value.trim()  || 'kp_plus';
+  return `// ── DEMO CONTROLS ────────────────────────────────
+alias "demo_pause_play" "demo_togglepause"
+alias "demo_speed_normal" "demo_timescale 1"
+alias "demo_speed_slow"   "demo_timescale 0.25"
+alias "demo_speed_fast"   "demo_timescale 4"
+bind "${pause}"  "demo_togglepause"
+bind "${skip}"   "demo_goto_next_round"
+bind "kp_minus"  "demo_speed_slow"
+bind "kp_multiply" "demo_speed_normal"
+echo "[VAC] demo controls loaded — ${pause}=pause  ${skip}=skip round"`;
+}
+
+function genPracCfg() {
+  const tog = document.getElementById('prac-key-toggle').value.trim() || 'kp_end';
+  return `// ── PRAC MODE ────────────────────────────────────
+alias "prac_on"  "sv_cheats 1; mp_warmup_end; mp_freezetime 0; mp_roundtime_defuse 60; mp_roundtime_hostage 60; sv_infinite_ammo 2; sv_showimpacts 1; sv_showimpacts_time 3; sv_grenade_trajectory_prac_pipreview 1; sv_grenade_trajectory_prac_trailtime 3; bot_kick; mp_restartgame 1; echo [VAC] PRAC MODE ON"
+alias "prac_off" "sv_cheats 0; sv_infinite_ammo 0; sv_showimpacts 0; sv_grenade_trajectory_prac_pipreview 0; bot_add_ct; mp_restartgame 1; echo [VAC] PRAC MODE OFF"
+alias "prac_toggle" "prac_on"
+alias "prac_on_switch"  "alias prac_toggle prac_off; prac_on"
+alias "prac_off_switch" "alias prac_toggle prac_on;  prac_off"
+alias "prac_on"  "prac_on_switch"
+alias "prac_off" "prac_off_switch"
+bind "${tog}" "prac_toggle"
+echo "[VAC] prac toggle bound to ${tog}"`;
+}
+
+function genXhairCfg() {
+  const cycleKey = document.getElementById('xhair-cycle-key').value.trim() || 'kp_ins';
+  const PRESETS = getXhairPresets();
+  const sel = document.querySelector('.xhair-preset.selected');
+  const selIdx = sel ? parseInt(sel.dataset.idx) : 0;
+  const p = PRESETS[selIdx];
+  let out = `// ── CROSSHAIR PRESETS ────────────────────────────\n`;
+  PRESETS.forEach((pr, i) => {
+    out += `alias "xhair_${i}" "${pr.cvars.join('; ')}; echo [xhair] ${pr.name}"\n`;
+  });
+  out += `\n// Cycle through presets\nalias "xhair_next_0" "xhair_0; alias xhair_cycle xhair_next_1"\n`;
+  PRESETS.forEach((_, i) => {
+    const next = (i+1) % PRESETS.length;
+    out += `alias "xhair_next_${i}" "xhair_${i}; alias xhair_cycle xhair_next_${next}"\n`;
+  });
+  out += `alias "xhair_cycle" "xhair_next_0"\nbind "${cycleKey}" "xhair_cycle"\n`;
+  out += `xhair_${selIdx}  // load default preset\necho "[VAC] crosshair presets loaded — ${cycleKey}=cycle"`;
+  return out;
+}
+
+function genHudCfg() {
+  const key = document.getElementById('hud-cycle-key').value.trim() || 'kp_del';
+  return `// ── HUD MODES ────────────────────────────────────
+alias "hud_full"  "cl_drawhud 1; cl_draw_only_deathnotices 0; echo [HUD] full"
+alias "hud_mini"  "cl_drawhud 1; cl_draw_only_deathnotices 1; echo [HUD] minimal"
+alias "hud_off"   "cl_drawhud 0; echo [HUD] off"
+alias "hud_mode_0" "hud_full; alias hud_cycle hud_mode_1"
+alias "hud_mode_1" "hud_mini; alias hud_cycle hud_mode_2"
+alias "hud_mode_2" "hud_off;  alias hud_cycle hud_mode_0"
+alias "hud_cycle" "hud_mode_0"
+bind "${key}" "hud_cycle"
+echo "[VAC] hud cycle bound to ${key}"`;
+}
+
+function genVolCfg() {
+  const hold = document.getElementById('vol-hold-key').value.trim() || 'alt';
+  return `// ── VOLUME WHEEL ─────────────────────────────────
+alias "vol_up"   "incrementvar volume 0 1 0.05"
+alias "vol_down" "incrementvar volume 0 1 -0.05"
+alias "+vol_mode" "bind mwheelup vol_up; bind mwheeldown vol_down"
+alias "-vol_mode" "bind mwheelup +jump;  bind mwheeldown +jump"
+bind "${hold}" "+vol_mode"
+echo "[VAC] hold ${hold} + wheel to adjust volume"`;
+}
+
+// ════════════════════════════════════════════════════════════
+// CROSSHAIR PRESETS DATA
+// ════════════════════════════════════════════════════════════
+function getXhairPresets() {
+  return [
+    { name:'Classic Static', cvars:['cl_crosshairstyle 4','cl_crosshairsize 2','cl_crosshairgap -2','cl_crosshairthickness 1','cl_crosshairdot 0','cl_crosshaircolor 1'] },
+    { name:'Tiny Dot',        cvars:['cl_crosshairstyle 4','cl_crosshairsize 0','cl_crosshairgap 0','cl_crosshairthickness 0.5','cl_crosshairdot 1','cl_crosshaircolor 1'] },
+    { name:'Large Dynamic',   cvars:['cl_crosshairstyle 2','cl_crosshairsize 4','cl_crosshairgap 2','cl_crosshairthickness 1.5','cl_crosshairdot 0','cl_crosshaircolor 1'] },
+    { name:'T-Shape',         cvars:['cl_crosshairstyle 4','cl_crosshairsize 2','cl_crosshairgap 1','cl_crosshairthickness 1','cl_crosshairdot 0','cl_crosshair_t 1','cl_crosshaircolor 4'] },
+    { name:'Sniper Style',    cvars:['cl_crosshairstyle 1','cl_crosshairsize 5','cl_crosshairgap 3','cl_crosshairthickness 0.5','cl_crosshairdot 1','cl_crosshaircolor 1'] },
+  ];
+}
+
+function renderXhairPresets() {
+  const cont = document.getElementById('xhair-presets');
+  const presets = getXhairPresets();
+  cont.innerHTML = '';
+  presets.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'xhair-preset' + (i===0?' selected':'');
+    div.dataset.idx = i;
+    // Simple SVG crosshair preview
+    const sz = parseFloat(p.cvars.find(c=>c.startsWith('cl_crosshairsize')).split(' ')[1]) || 2;
+    const hasDot = p.cvars.find(c=>c.startsWith('cl_crosshairdot')).includes(' 1');
+    const isT = p.cvars.find(c=>c.startsWith('cl_crosshair_t'))?.includes(' 1');
+    div.innerHTML = `
+      <div class="xhair-preview">
+        <svg width="32" height="24" viewBox="-16 -12 32 24" xmlns="http://www.w3.org/2000/svg">
+          ${hasDot ? '<circle cx="0" cy="0" r="1.5" fill="#4caf6e"/>':''}
+          <line x1="${-Math.min(sz*3,12)}" y1="0" x2="${Math.min(sz*3,12)}" y2="0" stroke="#4caf6e" stroke-width="1.5"/>
+          ${isT?'':'<line x1="0" y1="'+(-Math.min(sz*3,10))+'" x2="0" y2="'+Math.min(sz*3,10)+'" stroke="#4caf6e" stroke-width="1.5"/>'}
+        </svg>
+      </div>
+      <div class="xhair-label">${p.name}</div>
+    `;
+    div.addEventListener('click', () => {
+      document.querySelectorAll('.xhair-preset').forEach(el=>el.classList.remove('selected'));
+      div.classList.add('selected');
+      updateScriptCode('xhair');
+    });
+    cont.appendChild(div);
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+// CS2 CONFIG FILES
+// ════════════════════════════════════════════════════════════
 const CS2_FILES = {
   'cs2_user_convars_0_slot0.vcfg': 'convars (usuario)',
   'cs2_machine_convars.vcfg':      'convars (máquina)',
@@ -695,7 +1251,9 @@ const CS2_FILES = {
 };
 const LOCAL_CFG_PATHS = ['config/localconfig.vdf'];
 
-// ── FILE SYSTEM HELPERS ──────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// FILE SYSTEM HELPERS
+// ════════════════════════════════════════════════════════════
 async function readFile(dirHandle, ...segs) {
   try {
     let cur = dirHandle;
@@ -713,30 +1271,25 @@ async function listSubdirs(dirHandle) {
   return names;
 }
 
-// ── TERMINAL ANIMATION ────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// TERMINAL ANIMATION
+// ════════════════════════════════════════════════════════════
 const termText = document.getElementById('terminal-text');
-const cursor   = document.getElementById('cursor');
-let   typingTimer = null;
+let typingTimer = null;
 
 function termType(text, cls = 'path-text', delay = 0) {
   return new Promise(resolve => {
     clearTimeout(typingTimer);
-    cursor.style.display = 'inline-block';
     let i = 0;
     const el = document.createElement('span');
     el.className = cls;
     termText.replaceWith(el);
-    // Keep reference
-    Object.defineProperty(document, '_termEl', { value: el, configurable: true });
 
     const type = () => {
       if (i < text.length) {
         el.textContent += text[i++];
-        typingTimer = setTimeout(type, delay || (Math.random() * 18 + 6));
-      } else {
-        cursor.style.display = 'inline-block';
-        resolve();
-      }
+        typingTimer = setTimeout(type, delay || (Math.random()*18+6));
+      } else { resolve(); }
     };
     setTimeout(type, 80);
   });
@@ -744,29 +1297,24 @@ function termType(text, cls = 'path-text', delay = 0) {
 
 function termLine(text, cls) {
   const term = document.getElementById('terminal');
-  const span = document.createElement('span');
-  span.className = 'line';
-  const t = document.createElement('span');
-  t.className = cls;
-  t.textContent = text;
-  span.appendChild(t);
-  term.appendChild(span);
+  const span = document.createElement('span'); span.className = 'line';
+  const t = document.createElement('span'); t.className = cls; t.textContent = text;
+  span.appendChild(t); term.appendChild(span);
 }
 
-// ── MAIN: SELECT STEAM FOLDER ────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// STEP 1: SELECT STEAM FOLDER
+// ════════════════════════════════════════════════════════════
 window.selectSteamFolder = async function() {
   if (!hasFS) return;
 
-  const zone = document.getElementById('import-zone');
-  const icon = document.getElementById('import-icon-i');
+  const zone  = document.getElementById('import-zone');
   const title = document.getElementById('import-title');
-  const sub = document.getElementById('import-sub');
+  const sub   = document.getElementById('import-sub');
   const badge = document.getElementById('import-badge');
 
-  // Loading state
   zone.classList.add('loading');
-  icon.className = '';
-  icon.parentElement.innerHTML = '<div class="spinner"></div>';
+  zone.querySelector('.import-icon').innerHTML = '<div class="spinner"></div>';
   title.textContent = 'Abriendo selector...';
   sub.textContent = 'Selecciona la carpeta raíz de Steam en el diálogo del navegador.';
   badge.style.display = 'none';
@@ -774,45 +1322,32 @@ window.selectSteamFolder = async function() {
   try {
     steamDirHandle = await window.showDirectoryPicker({ id: 'steam-root', mode: 'read' });
   } catch (err) {
-    if (err.name === 'AbortError') {
-      resetImportZone();
-      return;
-    }
+    if (err.name === 'AbortError') { resetImportZone(); return; }
     resetImportZone('Error al abrir el selector.');
     return;
   }
 
-  // Animate path discovery
   await termType(steamDirHandle.name + '\\', 'path-text', 28);
 
-  // Check userdata/
   let userdataHandle;
   try { userdataHandle = await steamDirHandle.getDirectoryHandle('userdata'); }
   catch {
     termLine('  ✗ No se encontró "userdata\\". Selecciona la carpeta raíz de Steam.', 'path-err');
-    resetImportZone('Carpeta Steam no válida — no contiene "userdata\\".');
+    resetImportZone('Carpeta Steam no válida.');
     return;
   }
-
   await termType('userdata\\', 'path-text', 18);
 
-  // Scan account folders
   const subdirs = (await listSubdirs(userdataHandle)).filter(n => /^\d+$/.test(n));
+  if (subdirs.length === 0) { termLine('  ✗ Sin cuentas en userdata\\', 'path-err'); resetImportZone(); return; }
 
-  if (subdirs.length === 0) {
-    termLine('  ✗ Sin cuentas en userdata\\', 'path-err');
-    resetImportZone('No se encontraron cuentas de Steam.');
-    return;
-  }
+  termLine(`  → ${subdirs.length} cuenta${subdirs.length!==1?'s':''} encontrada${subdirs.length!==1?'s':''}`, 'path-found');
 
-  termLine(`  → ${subdirs.length} cuenta${subdirs.length !== 1 ? 's' : ''} encontrada${subdirs.length !== 1 ? 's' : ''}`, 'path-found');
-
-  // Process each account
   accounts = [];
   for (const entry of subdirs) {
     const id3 = parseInt(entry);
     const id64 = id3ToId64(id3);
-    const acctDir = await userdataHandle.getDirectoryHandle(entry).catch(() => null);
+    const acctDir = await userdataHandle.getDirectoryHandle(entry).catch(()=>null);
     if (!acctDir) continue;
 
     const acct = {
@@ -826,12 +1361,9 @@ window.selectSteamFolder = async function() {
       configHandles: {},
     };
 
-    // Check CS2 folder (730)
     let cs2Handle = null;
-    try { cs2Handle = await acctDir.getDirectoryHandle('730'); acct.hasCS2 = true; }
-    catch { /* no CS2 */ }
+    try { cs2Handle = await acctDir.getDirectoryHandle('730'); acct.hasCS2 = true; } catch {}
 
-    // Read localconfig.vdf for name + last played
     for (const lcPath of LOCAL_CFG_PATHS) {
       const content = await readFile(acctDir, ...lcPath.split('/'));
       if (content) {
@@ -844,51 +1376,43 @@ window.selectSteamFolder = async function() {
       }
     }
 
-    // Inventory CS2 config files
     if (cs2Handle) {
       for (const filename of Object.keys(CS2_FILES)) {
         try {
-          const fh = await cs2Handle
-            .getDirectoryHandle('local')
-            .then(d => d.getDirectoryHandle('cfg'))
-            .then(d => d.getFileHandle(filename));
+          const fh = await cs2Handle.getDirectoryHandle('local').then(d=>d.getDirectoryHandle('cfg')).then(d=>d.getFileHandle(filename));
           acct.configHandles[filename] = fh;
           acct.configFiles[filename] = true;
         } catch { acct.configFiles[filename] = false; }
       }
     }
-
     accounts.push(acct);
   }
 
-  // Sort: CS2 first, then most recently played
-  accounts.sort((a, b) => {
-    if (a.hasCS2 !== b.hasCS2) return a.hasCS2 ? -1 : 1;
-    return (b.profile.lastPlayed?.getTime() ?? 0) - (a.profile.lastPlayed?.getTime() ?? 0);
+  accounts.sort((a,b) => {
+    if (a.hasCS2!==b.hasCS2) return a.hasCS2?-1:1;
+    return (b.profile.lastPlayed?.getTime()??0)-(a.profile.lastPlayed?.getTime()??0);
   });
 
-  const cs2Count = accounts.filter(a => a.hasCS2).length;
-  termLine(`  → ${cs2Count} cuenta${cs2Count !== 1 ? 's' : ''} con datos de CS2`, 'path-found');
+  const cs2Count = accounts.filter(a=>a.hasCS2).length;
+  termLine(`  → ${cs2Count} cuenta${cs2Count!==1?'s':''} con datos de CS2`, 'path-found');
 
-  // Update zone to "done" state
   zone.classList.remove('loading');
   zone.style.cursor = 'default';
   zone.onclick = null;
   zone.style.borderColor = 'rgba(76,175,110,0.35)';
-  zone.style.background = 'rgba(76,175,110,0.06)';
+  zone.style.background  = 'rgba(76,175,110,0.06)';
   zone.querySelector('.import-icon').innerHTML = '<i class="ti ti-check" style="font-size:26px;color:var(--green)"></i>';
   title.textContent = 'Carpeta Steam detectada';
   sub.textContent = steamDirHandle.name;
-  sub.style.fontFamily = 'var(--mono)';
-  sub.style.color = 'var(--tx2)';
-  sub.style.fontSize = '12px';
+  sub.style.fontFamily='var(--mono)'; sub.style.color='var(--tx2)'; sub.style.fontSize='12px';
   badge.style.display = 'none';
 
-  // Show accounts
   renderAccounts();
 };
 
-// ── RENDER ACCOUNTS ──────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// RENDER ACCOUNTS
+// ════════════════════════════════════════════════════════════
 function renderAccounts() {
   const section = document.getElementById('accounts-section');
   const list    = document.getElementById('acct-list');
@@ -896,14 +1420,14 @@ function renderAccounts() {
   list.innerHTML = '';
 
   for (const acct of accounts) {
-    const initial = (acct.profile.name || '?')[0].toUpperCase();
+    const initial = (acct.profile.name||'?')[0].toUpperCase();
     const lastPlayed = acct.profile.lastPlayed
-      ? acct.profile.lastPlayed.toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' })
+      ? acct.profile.lastPlayed.toLocaleDateString('es',{day:'numeric',month:'short',year:'numeric'})
       : 'Nunca';
     const cfgCount = Object.values(acct.configFiles).filter(Boolean).length;
 
     const card = document.createElement('div');
-    card.className = `acct-card${acct.hasCS2 ? '' : ' no-cs2'}`;
+    card.className = `acct-card${acct.hasCS2?'':' no-cs2'}`;
     card.innerHTML = `
       <div class="acct-avatar">${initial}</div>
       <div class="acct-info">
@@ -914,696 +1438,366 @@ function renderAccounts() {
         </div>
       </div>
       <div class="acct-right">
-        <span class="badge ${acct.hasCS2 ? 'badge-cs2' : 'badge-none'}" id="badge-${acct.folderName}">
-          ${acct.hasCS2 ? 'CS2' : 'Sin CS2'}
+        <span class="badge ${acct.hasCS2?'badge-cs2':'badge-none'}" id="badge-${acct.folderName}">
+          ${acct.hasCS2?'CS2':'Sin CS2'}
         </span>
-        ${acct.hasCS2 ? `<span class="acct-files">${cfgCount}/${Object.keys(CS2_FILES).length} archivos</span>` : ''}
+        ${acct.hasCS2?`<span class="acct-files">${cfgCount}/${Object.keys(CS2_FILES).length} archivos</span>`:''}
       </div>
     `;
-
-    if (acct.hasCS2) {
-      card.addEventListener('click', () => selectAccount(acct, card));
-    }
-
+    if (acct.hasCS2) card.addEventListener('click', ()=>selectAccount(acct, card));
     list.appendChild(card);
   }
 
-  // Auto-select if only one CS2 account
-  const cs2Accounts = accounts.filter(a => a.hasCS2);
+  const cs2Accounts = accounts.filter(a=>a.hasCS2);
   if (cs2Accounts.length === 1) {
     const onlyCard = list.querySelector('.acct-card:not(.no-cs2)');
     if (onlyCard) selectAccount(cs2Accounts[0], onlyCard);
   }
 }
 
-// ── SELECT ACCOUNT ───────────────────────────────────────────
 function selectAccount(acct, card) {
   selectedAcct = acct;
-
-  // Update card styles
   document.querySelectorAll('.acct-card').forEach(c => {
     c.classList.remove('selected');
     const b = c.querySelector('.badge');
-    if (b && b.classList.contains('badge-selected')) {
-      b.classList.remove('badge-selected');
-      b.classList.add('badge-cs2');
-      b.textContent = 'CS2';
-    }
+    if (b && b.classList.contains('badge-selected')) { b.classList.remove('badge-selected'); b.classList.add('badge-cs2'); b.textContent='CS2'; }
   });
   card.classList.add('selected');
   const badge = card.querySelector('.badge');
-  badge.classList.remove('badge-cs2');
-  badge.classList.add('badge-selected');
-  badge.textContent = '✓ Seleccionada';
+  badge.classList.remove('badge-cs2'); badge.classList.add('badge-selected'); badge.textContent='✓ Seleccionada';
 
-  // Show config files
   renderCfgFiles(acct);
-
-  // Footer
   const footer = document.getElementById('footer-action');
   footer.classList.add('visible');
   document.getElementById('footer-name').textContent = acct.profile.name;
   document.getElementById('btn-next').disabled = false;
 }
 
-// ── RENDER CFG FILES ─────────────────────────────────────────
 function renderCfgFiles(acct) {
   const card = document.getElementById('cfg-files-card');
   const grid = document.getElementById('cfg-files-grid');
-  card.style.display = 'block';
-  grid.innerHTML = '';
-
+  card.style.display='block'; grid.innerHTML='';
   for (const [filename, label] of Object.entries(CS2_FILES)) {
     const found = acct.configFiles[filename];
     const row = document.createElement('div');
-    row.className = `cfg-file-row${found ? '' : ' missing'}`;
-    row.innerHTML = `
-      <i class="ti ti-file-code ${found ? 'found' : 'missing'}"></i>
+    row.className=`cfg-file-row${found?'':' missing'}`;
+    row.innerHTML=`
+      <i class="ti ti-file-code ${found?'found':'missing'}"></i>
       <div>
         <div class="cfg-file-name">${filename}</div>
         <div style="font-size:10px;color:var(--tx3);font-family:var(--mono);margin-top:1px">${label}</div>
       </div>
-      <span style="font-size:10px;color:${found ? 'var(--green)' : 'var(--tx3)'}">
-        ${found ? '✓' : '—'}
-      </span>
+      <span style="font-size:10px;color:${found?'var(--green)':'var(--tx3)'}">${found?'✓':'—'}</span>
     `;
     grid.appendChild(row);
   }
 }
 
-// ── HELPERS ──────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// STEP NAV
+// ════════════════════════════════════════════════════════════
+function goToStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(`panel-${n}`).classList.add('active');
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active','done'));
+  for (let i=1;i<n;i++) document.getElementById(`step-${i}`).classList.add('done');
+  document.getElementById(`step-${n}`).classList.add('active');
+  document.getElementById('footer-action').classList.remove('visible');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+window.goToStep = goToStep;
+
+// ════════════════════════════════════════════════════════════
+// STEP 2: PREVIEW
+// ════════════════════════════════════════════════════════════
+window.goToPreview = async function() {
+  if (!selectedAcct) return;
+
+  // Read files
+  const files = {};
+  for (const [filename, fh] of Object.entries(selectedAcct.configHandles)) {
+    try { files[filename] = await (await fh.getFile()).text(); } catch { files[filename]=null; }
+  }
+
+  const allConVars = {};
+  if (files['cs2_user_convars_0_slot0.vcfg']) Object.assign(allConVars, extractConVars(files['cs2_user_convars_0_slot0.vcfg']));
+  if (files['cs2_machine_convars.vcfg']) {
+    const mc = extractConVars(files['cs2_machine_convars.vcfg']);
+    for (const [k,v] of Object.entries(mc)) if (!(k in allConVars)) allConVars[k]=v;
+  }
+  if (files['cs2_video.txt']) {
+    const vid = extractVideoSettings(files['cs2_video.txt']);
+    for (const [k,v] of Object.entries(vid)) if (!(k in allConVars)) allConVars[k]=v;
+  }
+
+  const bindings   = files['cs2_user_keys_0_slot0.vcfg'] ? extractBindings(files['cs2_user_keys_0_slot0.vcfg']) : {};
+  const categorized = categorizeConVars(allConVars);
+  const autoexec   = generateAutoexec({ categorized, bindings });
+
+  parsedResult = { autoexec, categorized, bindings, allConVars };
+
+  // Update stats
+  const totalCV    = Object.keys(allConVars).length;
+  const totalBinds = Object.keys(bindings).length;
+  const sectCount  = Object.entries(categorized).filter(([k,v])=>k!=='uncategorized'&&Object.keys(v).length>0).length;
+  const lineCount  = autoexec.split('\n').length;
+
+  document.getElementById('stat-convars').textContent  = totalCV;
+  document.getElementById('stat-binds').textContent    = totalBinds;
+  document.getElementById('stat-sections').textContent = sectCount;
+  document.getElementById('stat-lines').textContent    = lineCount;
+
+  // Build tabs
+  const tabs = document.getElementById('section-tabs');
+  tabs.innerHTML = '';
+  const sections = [
+    { key:'binds', label:'Binds', count: totalBinds },
+    ...Object.entries(SECTION_LABELS).map(([k,l])=>({ key:k, label:l, count: Object.keys(categorized[k]||{}).length })).filter(s=>s.count>0),
+  ];
+
+  sections.forEach(s => {
+    const b = document.createElement('button');
+    b.className='stab' + (s.key===currentSection?' active':'');
+    b.innerHTML=`${s.label} <span class="cnt">${s.count}</span>`;
+    b.onclick=()=>showSection(s.key, sections);
+    tabs.appendChild(b);
+  });
+
+  showSection(currentSection, sections);
+
+  // Raw preview
+  const ta = document.getElementById('code-preview');
+  ta.value = autoexec;
+  ta.style.height = Math.min(600, Math.max(320, lineCount*14)) + 'px';
+  document.getElementById('lines-count').textContent = `${lineCount} líneas`;
+
+  // Render xhair presets for step 3
+  renderXhairPresets();
+
+  goToStep(2);
+};
+
+function showSection(key, sections) {
+  currentSection = key;
+  // Update tabs
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  const activeTab = Array.from(document.querySelectorAll('.stab')).find(b=>b.textContent.trim().startsWith(sections.find(s=>s.key===key)?.label||''));
+  if (activeTab) activeTab.classList.add('active');
+
+  const cont = document.getElementById('section-content');
+  cont.innerHTML = '';
+
+  if (key === 'binds') {
+    const grid = document.createElement('div');
+    grid.className = 'binds-grid';
+    const entries = Object.entries(parsedResult.bindings);
+    if (entries.length === 0) {
+      grid.innerHTML = '<div style="padding:20px;color:var(--tx3);font-size:12px">No se encontraron binds.</div>';
+    } else {
+      entries.forEach(([k, cmd]) => {
+        const row = document.createElement('div');
+        row.className = 'bind-row';
+        const isEmpty = !cmd || cmd.trim() === '' || cmd.trim() === '" "' || cmd === ' ';
+        row.innerHTML = `
+          <span class="bind-key">${escHtml(k)}</span>
+          <span class="bind-cmd ${isEmpty?'bind-placeholder':''}">${isEmpty?'(sin asignar)':escHtml(cmd)}</span>
+        `;
+        grid.appendChild(row);
+      });
+    }
+    cont.appendChild(grid);
+  } else {
+    const vars = parsedResult.categorized[key] || {};
+    const table = document.createElement('table');
+    table.className = 'cv-table';
+    const entries = Object.entries(vars);
+    if (entries.length === 0) {
+      table.innerHTML = '<tr><td colspan="2" style="padding:20px;color:var(--tx3);font-size:12px">No se encontraron valores para esta sección.</td></tr>';
+    } else {
+      entries.forEach(([k,v]) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td class="cv-key">${escHtml(k)}</td><td class="cv-val">${escHtml(v)}</td>`;
+        table.appendChild(tr);
+      });
+    }
+    cont.appendChild(table);
+  }
+}
+
+window.copyAutoexec = function() {
+  const ta = document.getElementById('code-preview');
+  navigator.clipboard.writeText(ta.value).then(()=>{
+    const btn = document.querySelector('.code-preview-actions .btn-ghost');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="ti ti-check"></i> Copiado';
+    btn.style.color='var(--green)';
+    setTimeout(()=>{ btn.innerHTML=orig; btn.style.color=''; },2000);
+  });
+};
+
+// ════════════════════════════════════════════════════════════
+// STEP 3: SCRIPTS
+// ════════════════════════════════════════════════════════════
+const SCRIPT_GENS = { demo: genDemoCfg, prac: genPracCfg, xhair: genXhairCfg, hud: genHudCfg, vol: genVolCfg };
+
+window.toggleScript = function(id) {
+  const card = document.getElementById(`sc-${id}`);
+  const isEnabled = card.classList.contains('enabled');
+  card.classList.toggle('enabled');
+  enabledScripts[id] = !isEnabled;
+  if (!isEnabled) updateScriptCode(id);
+  rebuildAutoexec();
+};
+
+function updateScriptCode(id) {
+  const el = document.getElementById(`${id}-code`);
+  if (el && SCRIPT_GENS[id]) {
+    // Add event listeners to re-generate on input change
+    el.textContent = SCRIPT_GENS[id]();
+  }
+}
+
+// Rebind input listeners for script options
+['demo-key-pause','demo-key-skip','prac-key-toggle','xhair-cycle-key','hud-cycle-key','vol-hold-key'].forEach(id=>{
+  const el=document.getElementById(id);
+  if (el) el.addEventListener('input', ()=>{
+    const script = id.split('-')[0];
+    if (enabledScripts[script]) { updateScriptCode(script); rebuildAutoexec(); }
+  });
+});
+
+function rebuildAutoexec() {
+  if (!parsedResult) return;
+  const scriptBlocks = Object.entries(enabledScripts).filter(([,v])=>v).map(([k])=>SCRIPT_GENS[k]());
+  const autoexec = generateAutoexec({ categorized: parsedResult.categorized, bindings: parsedResult.bindings, scriptBlocks });
+  parsedResult.autoexec = autoexec;
+  const ta = document.getElementById('code-preview');
+  if (ta) ta.value = autoexec;
+  const lineCount = autoexec.split('\n').length;
+  document.getElementById('stat-lines').textContent = lineCount;
+  const lc = document.getElementById('lines-count');
+  if (lc) lc.textContent = `${lineCount} líneas`;
+}
+
+// ════════════════════════════════════════════════════════════
+// STEP 4: EXPORT
+// ════════════════════════════════════════════════════════════
+window.selectExportOpt = function(mode) {
+  exportMode = mode;
+  document.querySelectorAll('.export-opt').forEach(el=>el.classList.remove('selected'));
+  document.getElementById(`eopt-${mode}`).classList.add('selected');
+  document.getElementById('export-path-hint').style.display = mode==='picker'?'block':'none';
+};
+
+window.doExport = async function() {
+  if (!parsedResult) return;
+  rebuildAutoexec();
+  const content = parsedResult.autoexec;
+
+  if (exportMode === 'picker') {
+    try {
+      const fh = await window.showSaveFilePicker({
+        suggestedName: 'autoexec.cfg',
+        types: [{ description: 'CS2 Config', accept: { 'text/plain': ['.cfg'] } }],
+      });
+      const writable = await fh.createWritable();
+      await writable.write(content);
+      await writable.close();
+      showExportDone(`Guardado en: ${fh.name}`);
+    } catch (err) {
+      if (err.name!=='AbortError') alert('Error al guardar: ' + err.message);
+    }
+  } else {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href=url; a.download='autoexec.cfg'; a.click();
+    URL.revokeObjectURL(url);
+    showExportDone('Descargado como autoexec.cfg en tu carpeta de Descargas.');
+  }
+};
+
+function showExportDone(msg) {
+  document.getElementById('export-main').style.display='none';
+  const done = document.getElementById('export-done');
+  document.getElementById('done-sub').textContent = msg + ' Reinicia CS2 o escribe exec autoexec en la consola para cargarlo.';
+  done.classList.add('visible');
+}
+
+// ════════════════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════════════════
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 function resetImportZone(msg) {
-  const zone  = document.getElementById('import-zone');
-  const icon  = document.getElementById('import-icon-i');
-  const title = document.getElementById('import-title');
-  const sub   = document.getElementById('import-sub');
-  const badge = document.getElementById('import-badge');
-
+  const zone=document.getElementById('import-zone');
   zone.classList.remove('loading');
-  zone.onclick = selectSteamFolder;
-  zone.querySelector('.import-icon').innerHTML = '<i class="ti ti-folder-open" id="import-icon-i" style="font-size:26px;color:var(--or)"></i>';
-  title.textContent = msg || 'Seleccionar carpeta Steam';
-  sub.textContent = 'Selecciona la carpeta raíz de Steam.';
-  sub.style = '';
-  badge.style.display = '';
+  zone.onclick=selectSteamFolder;
+  zone.querySelector('.import-icon').innerHTML='<i class="ti ti-folder-open" style="font-size:26px;color:var(--or)"></i>';
+  document.getElementById('import-title').textContent=msg||'Seleccionar carpeta Steam';
+  document.getElementById('import-sub').textContent='Selecciona la carpeta raíz de Steam.';
+  document.getElementById('import-sub').style='';
+  document.getElementById('import-badge').style.display='';
 }
 
 window.resetSelection = function() {
-  steamDirHandle = null;
-  selectedAcct   = null;
-  accounts       = [];
-
-  // Reset terminal
-  const term = document.getElementById('terminal');
-  term.innerHTML = '<span class="line"><span class="prompt">steam&gt; </span><span class="path-text" id="terminal-text">esperando selección de carpeta...</span><span class="cursor" id="cursor"></span></span>';
-
-  // Hide sections
+  steamDirHandle=null; selectedAcct=null; accounts=[];
+  const term=document.getElementById('terminal');
+  term.innerHTML='<span class="line"><span class="prompt">steam&gt; </span><span class="path-text" id="terminal-text">esperando selección de carpeta...</span><span class="cursor" id="cursor"></span></span>';
   document.getElementById('accounts-section').classList.remove('visible');
-  document.getElementById('cfg-files-card').style.display = 'none';
+  document.getElementById('cfg-files-card').style.display='none';
   document.getElementById('footer-action').classList.remove('visible');
-
-  // Reset import zone
-  const zone = document.getElementById('import-zone');
-  zone.style.cursor = '';
-  zone.style.borderColor = '';
-  zone.style.background = '';
-  zone.querySelector('.import-icon').innerHTML = '<i class="ti ti-folder-open" style="font-size:26px;color:var(--or)"></i>';
-  zone.onclick = selectSteamFolder;
-  document.getElementById('import-title').textContent = 'Seleccionar carpeta Steam';
-  document.getElementById('import-sub').textContent = 'Selecciona la carpeta raíz de Steam — por ejemplo C:\\Program Files (x86)\\Steam.';
-  document.getElementById('import-sub').style = '';
-  document.getElementById('import-badge').style.display = '';
-  document.getElementById('btn-next').disabled = true;
+  const zone=document.getElementById('import-zone');
+  zone.style.cursor=''; zone.style.borderColor=''; zone.style.background='';
+  zone.querySelector('.import-icon').innerHTML='<i class="ti ti-folder-open" style="font-size:26px;color:var(--or)"></i>';
+  zone.onclick=selectSteamFolder;
+  document.getElementById('import-title').textContent='Seleccionar carpeta Steam';
+  document.getElementById('import-sub').textContent='Selecciona la carpeta raíz de Steam — por ejemplo C:\\Program Files (x86)\\Steam.';
+  document.getElementById('import-sub').style='';
+  document.getElementById('import-badge').style.display='';
+  document.getElementById('btn-next').disabled=true;
 };
 
-window.goToStep2 = async function() {
-  if (!selectedAcct) return;
+window.resetAll = function() { window.resetSelection(); parsedResult=null; enabledScripts={}; };
 
-  // ── Step indicator ───────────────────────────────────────────
-  document.getElementById('step-1').classList.remove('active');
-  document.getElementById('step-1').classList.add('done');
-  document.getElementById('step-2').classList.add('active');
+// Step 2 next button
+document.querySelectorAll('.step-panel').forEach(() => {});
 
-  // ── Hide step 1, show step 2 ─────────────────────────────────
-  document.querySelector('.container').innerHTML = `
-    <div class="page-hdr">
-      <h1>Preview — Autoexec.cfg</h1>
-      <p>Valores leídos de tus archivos <code style="font-family:var(--mono);color:var(--or);font-size:11px">.vcfg</code> de <strong>${escHtml(selectedAcct.profile.name)}</strong>. Revisa el resultado antes de exportar.</p>
-    </div>
-    <div class="info-box tip" id="parse-status">
-      <div class="spinner"></div>
-      <div>Leyendo archivos de configuración...</div>
-    </div>
-    <div id="step2-content" style="display:none;flex-direction:column;gap:16px"></div>
-  `;
-
-  // ── Read all vcfg files ──────────────────────────────────────
-  const rawFiles = {};
-  for (const [filename, fh] of Object.entries(selectedAcct.configHandles)) {
-    try { rawFiles[filename] = await (await fh.getFile()).text(); }
-    catch { rawFiles[filename] = null; }
+// Add "Continue" buttons to step footers
+function addStepFooter(panelId, nextFn, backFn, nextLabel, backLabel) {
+  const panel = document.getElementById(`panel-${panelId}`);
+  const footer = document.createElement('div');
+  footer.style.cssText='display:flex;gap:10px;justify-content:flex-end;padding-top:8px';
+  if (backFn !== null) {
+    const backBtn = document.createElement('button');
+    backBtn.className='btn btn-ghost';
+    backBtn.innerHTML=`<i class="ti ti-arrow-left"></i> ${backLabel||'Volver'}`;
+    backBtn.onclick=backFn;
+    footer.appendChild(backBtn);
   }
-
-  // ── VDF full parser (convars + bindings) ─────────────────────
-  function parseVDFFull(src) {
-    if (!src) return {};
-    const tokens = [];
-    let i = 0;
-    while (i < src.length) {
-      const c = src[i];
-      if (/\s/.test(c)) { i++; continue; }
-      if (c === '/' && src[i+1] === '/') { while (i < src.length && src[i] !== '\n') i++; continue; }
-      if (c === '{') { tokens.push('OPEN'); i++; continue; }
-      if (c === '}') { tokens.push('CLOSE'); i++; continue; }
-      if (c === '"') {
-        let s = ''; i++;
-        while (i < src.length) {
-          if (src[i] === '\\' && i+1 < src.length) { s += src[i+1]; i+=2; continue; }
-          if (src[i] === '"') { i++; break; }
-          s += src[i++];
-        }
-        tokens.push(s);
-      } else {
-        let w = '';
-        while (i < src.length && !/[\s{}"\/]/.test(src[i])) w += src[i++];
-        if (w) tokens.push(w);
-      }
-    }
-    let pos = 0;
-    function obj() {
-      const o = {};
-      while (pos < tokens.length) {
-        if (tokens[pos] === 'CLOSE') { pos++; return o; }
-        const k = tokens[pos++];
-        if (pos >= tokens.length) break;
-        o[k] = tokens[pos] === 'OPEN' ? (pos++, obj()) : tokens[pos++];
-      }
-      return o;
-    }
-    const root = {};
-    while (pos < tokens.length) {
-      if (tokens[pos]==='OPEN'||tokens[pos]==='CLOSE'){pos++;continue;}
-      const k = tokens[pos++];
-      if (pos >= tokens.length) break;
-      root[k] = tokens[pos]==='OPEN'?(pos++,obj()):tokens[pos++];
-    }
-    return root;
-  }
-
-  function flattenConvars(src) {
-    const out = {};
-    function walk(o, d=0) {
-      if (!o||typeof o!=='object'||d>5) return;
-      for (const [k,v] of Object.entries(o)) {
-        if (typeof v==='string') out[k]=v;
-        else walk(v, d+1);
-      }
-    }
-    walk(parseVDFFull(src));
-    return out;
-  }
-
-  function extractBindings(src) {
-    const out = {};
-    function walk(o, d=0) {
-      if (!o||typeof o!=='object'||d>5) return;
-      if ('bindings' in o && typeof o.bindings==='object') {
-        Object.assign(out, o.bindings); return;
-      }
-      for (const v of Object.values(o)) if (typeof v==='object') walk(v,d+1);
-    }
-    walk(parseVDFFull(src));
-    return out;
-  }
-
-  // ── Parse all files ──────────────────────────────────────────
-  const userConvars    = flattenConvars(rawFiles['cs2_user_convars_0_slot0.vcfg']);
-  const machineConvars = flattenConvars(rawFiles['cs2_machine_convars.vcfg']);
-  const bindings       = extractBindings(rawFiles['cs2_user_keys_0_slot0.vcfg']);
-  const videoConvars   = flattenConvars(rawFiles['cs2_video.txt']);
-
-  // Merge: user > machine > video (user has highest priority)
-  const allConvars = { ...videoConvars, ...machineConvars, ...userConvars };
-
-  const totalConvars = Object.keys(allConvars).length;
-  const totalBinds   = Object.keys(bindings).length;
-
-  // ── Generate Autoexec.cfg from template ──────────────────────
-  // Template convar map — maps template placeholder value to actual convar name
-  // We inject vcfg values into the template structure preserving all comments/sections
-
-  function getVal(key, fallback='') {
-    return allConvars[key] ?? fallback;
-  }
-
-  function getBind(key) {
-    return bindings[key] ?? ' ';
-  }
-
-  const now = new Date().toLocaleDateString('es', {day:'numeric',month:'short',year:'numeric'});
-  const acctName = selectedAcct.profile.name;
-  const id64     = selectedAcct.id64;
-
-  // ── Build the autoexec string ─────────────────────────────────
-  // We reproduce the canonical template structure exactly,
-  // substituting values from vcfg where available.
-
-  const cv = (key, fallback) => {
-    const v = allConvars[key];
-    return v !== undefined ? v : fallback;
-  };
-
-  const autoexec = buildAutoexec(cv, bindings, acctName, id64, now);
-
-  // ── Update status ────────────────────────────────────────────
-  const statusEl = document.getElementById('parse-status');
-  statusEl.className = 'info-box ok';
-  statusEl.innerHTML = `<i class="ti ti-check"></i>
-    <div>Leídos <strong>${totalConvars}</strong> convars y <strong>${totalBinds}</strong> binds de <strong>${escHtml(acctName)}</strong>.
-    Autoexec.cfg generado — ${autoexec.split('\n').length} líneas.</div>`;
-
-  // ── Render step 2 content ────────────────────────────────────
-  const content = document.getElementById('step2-content');
-  content.style.display = 'flex';
-
-  // Stats row
-  content.innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-      ${statCard('ti-settings','Convars',totalConvars,'leídos del vcfg')}
-      ${statCard('ti-keyboard','Binds',totalBinds,'leídos del vcfg')}
-      ${statCard('ti-file-code','Líneas',autoexec.split('\n').length,'en el autoexec')}
-    </div>
-
-    <div class="card">
-      <div class="card-head" style="justify-content:space-between">
-        <span><i class="ti ti-file-code"></i> Autoexec.cfg — ${escHtml(acctName)}</span>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px" onclick="copyAutoexec()">
-            <i class="ti ti-copy"></i> Copiar
-          </button>
-        </div>
-      </div>
-      <pre id="cfg-preview" style="
-        font-family:var(--mono);font-size:11px;line-height:1.7;
-        padding:16px;max-height:480px;overflow-y:auto;
-        background:#040404;color:#c8c4bc;white-space:pre;
-      ">${hlCfg(escHtml(autoexec))}</pre>
-    </div>
-
-    <div class="info-box tip">
-      <i class="ti ti-info-circle"></i>
-      <div>Los valores marcados con <code style="font-family:var(--mono);color:var(--green);font-size:10px">// ← vcfg</code>
-      fueron leídos de tus archivos. El resto usa valores de tu Autoexec.cfg base.</div>
-    </div>
-  `;
-
-  // Store generated autoexec for export
-  window._generatedAutoexec = autoexec;
-  window._acctName = acctName;
-
-  // Footer
-  const footer = document.getElementById('footer-action');
-  footer.innerHTML = `
-    <div class="footer-hint">Preview generado — <span>${escHtml(acctName)}</span></div>
-    <button class="btn btn-ghost" onclick="backToStep1()">
-      <i class="ti ti-arrow-left"></i> Volver
-    </button>
-    <button class="btn btn-primary" onclick="goToStep3()">
-      Scripts opcionales <i class="ti ti-arrow-right"></i>
-    </button>
-  `;
-};
-
-// ── STAT CARD HELPER ─────────────────────────────────────────
-function statCard(icon, label, value, sub) {
-  return `<div style="background:var(--s2);border:1px solid var(--b2);border-radius:var(--r2);padding:14px 16px">
-    <div style="font-size:11px;color:var(--tx3);display:flex;align-items:center;gap:5px;margin-bottom:6px">
-      <i class="ti ${icon}"></i> ${label}
-    </div>
-    <div style="font-size:22px;font-weight:600;font-family:var(--mono);color:var(--or)">${value}</div>
-    <div style="font-size:10px;color:var(--tx3);margin-top:2px">${sub}</div>
-  </div>`;
+  const nextBtn = document.createElement('button');
+  nextBtn.className='btn btn-primary';
+  nextBtn.innerHTML=`${nextLabel||'Continuar'} <i class="ti ti-arrow-right"></i>`;
+  nextBtn.onclick=nextFn;
+  footer.appendChild(nextBtn);
+  panel.appendChild(footer);
 }
 
-// ── CFG SYNTAX HIGHLIGHT ─────────────────────────────────────
-function hlCfg(html) {
-  return html
-    .split('\n')
-    .map(line => {
-      if (/^\/\//.test(line.trim())) {
-        return `<span style="color:#4a6a40">${line}</span>`;
-      }
-      if (/^bind /.test(line.trim())) {
-        return `<span style="color:#a8d8a0">${line}</span>`;
-      }
-      if (/^alias /.test(line.trim())) {
-        return `<span style="color:#d0a8e0">${line}</span>`;
-      }
-      if (/^echo /.test(line.trim())) {
-        return `<span style="color:#7ab8e8">${line}</span>`;
-      }
-      // convar line: highlight key in muted, value in orange
-      const m = line.match(/^([^\s"]+)(\s+)(.*)/);
-      if (m) {
-        return `<span style="color:#b0aca6">${m[1]}</span>${m[2]}<span style="color:#e8a07a">${m[3]}</span>`;
-      }
-      return line;
-    })
-    .join('\n');
-}
+addStepFooter(2,
+  ()=>goToStep(3),
+  ()=>{ goToStep(1); document.getElementById('footer-action').classList.add('visible'); },
+  'Continuar a Scripts',
+  'Volver a Importar'
+);
+addStepFooter(3,
+  ()=>goToStep(4),
+  ()=>goToStep(2),
+  'Continuar a Exportar',
+  'Volver a Preview'
+);
 
-// ── BUILD AUTOEXEC FROM VCFG VALUES ──────────────────────────
-function buildAutoexec(cv, binds, acctName, id64, date) {
-  const b = (key, fallback=' ') => {
-    const v = binds[key];
-    return v !== undefined ? v : fallback;
-  };
-
-  // helper: emit a bind line
-  const bindLine = (key, cmd, comment) => {
-    const val = b(key, ' ');
-    const q = val === ' ' ? '" "' : `"${val}"`;
-    return `bind ${q}\t"${cmd}"\t\t\t\t\t// ${comment}`;
-  };
-
-  const lines = [
-`// ╔════════════════════════════════════════════════════════════╗`,
-`// ║  Autoexec.cfg — ${acctName}'s CS2 Autoexec`,
-`// ║  Generado: ${date} — ID: ${id64}`,
-`// ║  Launch option:  +exec Autoexec`,
-`// ╚════════════════════════════════════════════════════════════╝`,
-`// ── General ─────────────────────────────────────────────────`,
-``,
-`unbindall\t\t\t\t\t\t// Limpia cualquier bind previo`,
-`autobuy "0"\t\t\t\t\t\t// No autocomprar al iniciar ronda`,
-`bind "mouse_x" "yaw"\t\t\t\t\t// Mapeo de eje x del mouse a rotacion de camara`,
-`bind "mouse_y" "pitch"\t\t\t\t\t// Mapeo de eje y del mouse a rotacion de camara`,
-`engine_low_latency_sleep_after_client_tick "1"\t\t// Reduce microstutter (low latency mode)`,
-`m_pitch "${cv('m_pitch','0.022')}"\t\t\t\t\t\t// Sensibilidad vertical a nivel de motor`,
-`m_yaw "${cv('m_yaw','0.01863')}"\t\t\t\t\t\t// Sensibilidad horizontal a nivel de motor`,
-`net_client_steamdatagram_enable_override "1" \t\t// Forzar routing via red SDR de Steam`,
-`net_maxroutable "1200"\t\t\t\t\t// Tamano max. de paquete (reduce fragmentacion)`,
-`r_show_build_info "0"\t\t\t\t\t// Sin info de build en pantalla`,
-`sv_showimpacts "0"\t\t\t\t\t// Sin marcas de impacto (estado base, prac.cfg lo activa)`,
-``,
-`// ──────────────────────────────────────────────────────────────`,
-`// NOTA SOBRE TECLAS vs SCANCODES — cambio de idioma ENG US/ENG LAA`,
-`//`,
-`// Movimiento usa bind "shift" "+sprint" y bind "ctrl" "+duck".`,
-`// Presionar ambas a la vez = Ctrl+Shift = atajo de Windows para`,
-`// cambiar idioma del teclado. Solucion:`,
-`//   Configuracion > Hora e idioma > Escritura >`,
-`//   Configuracion avanzada del teclado >`,
-`//   Metodos de acceso directo > "Cambiar idioma" = No asignado.`,
-`// ──────────────────────────────────────────────────────────────`,
-``,
-`echo "[Autoexec] cargando configuracion base..."`,
-``,
-`// ╔════════════════════════════════════════════════════════════╗`,
-`// ║  AUDIO                                                       ║`,
-`// ╚════════════════════════════════════════════════════════════╝`,
-`// ── Audio ───────────────────────────────────────────────────`,
-``,
-`volume "${cv('volume','1')}"\t\t\t\t\t\t// Volumen maestro`,
-`snd_menumap_volume "${cv('snd_menumap_volume','0')}"\t\t\t\t\t// Sin musica de fondo en el menu principal`,
-`sound_device_override "${cv('sound_device_override','Source2SDLDefaultDevice')}"\t\t// Dispositivo de salida`,
-`snd_headphone_eq "${cv('snd_headphone_eq','1')}"\t\t\t\t\t// Perfil de ecualizacion = Crisp (audifonos)`,
-`snd_spatialize_lerp "${cv('snd_spatialize_lerp','0.8')}"\t\t\t\t// Aislamiento L/R — suavizado de audio 3D`,
-`snd_steamaudio_enable_perspective_correction "${cv('snd_steamaudio_enable_perspective_correction','1')}"\t// Correccion de perspectiva (Steam Audio)`,
-`snd_mute_losefocus "${cv('snd_mute_losefocus','0')}"\t\t\t\t\t// No silenciar al perder foco la ventana`,
-``,
-`// ── Voz ─────────────────────────────────────────────────────`,
-``,
-`snd_voipvolume "${cv('snd_voipvolume','1')}"\t\t\t\t\t// Volumen de voz de otros jugadores`,
-`voice_modenable "${cv('voice_modenable','1')}"\t\t\t\t\t// Voz habilitada (push to talk)`,
-`voice_device_override "${cv('voice_device_override','Microphone (High Definition Audio Device)')}" // Dispositivo de entrada`,
-`voice_loopback "${cv('voice_loopback','0')}"\t\t\t\t\t// No escuchar tu propia voz`,
-`voice_always_sample_mic "${cv('voice_always_sample_mic','0')}"\t\t\t\t// Streamlined PTT = no`,
-`voice_threshold "${cv('voice_threshold','-120')}"\t\t\t\t\t// Umbral de activacion del mic (dB)`,
-``,
-`// ── Musica y sonidos de evento ────────────────────────────────`,
-``,
-`snd_menumusic_volume "${cv('snd_menumusic_volume','0')}"\t\t\t\t// Musica del menu principal`,
-`snd_roundstart_volume "${cv('snd_roundstart_volume','0')}"\t\t\t\t// Sonido al iniciar ronda`,
-`snd_roundaction_volume "${cv('snd_roundaction_volume','0')}"\t\t\t\t// Sonido de accion de ronda`,
-`snd_roundend_volume "${cv('snd_roundend_volume','0')}"\t\t\t\t\t// Sonido al terminar ronda`,
-`snd_mvp_volume "${cv('snd_mvp_volume','0')}"\t\t\t\t\t// Musica MVP`,
-`snd_mapobjective_volume "${cv('snd_mapobjective_volume','0')}"\t\t\t\t// Sonido de bomba/rehenes`,
-`snd_tensecondwarning_volume "${cv('snd_tensecondwarning_volume','0.3')}"\t\t\t// Aviso de 10 segundos`,
-`snd_deathcamera_volume "${cv('snd_deathcamera_volume','0')}"\t\t\t\t// Sonido de camara de muerte`,
-`snd_mute_mvp_music_live_players "${cv('snd_mute_mvp_music_live_players','0')}"\t\t\t// Musica MVP con jugadores vivos`,
-``,
-`// ╔════════════════════════════════════════════════════════════╗`,
-`// ║  JUEGO                                                       ║`,
-`// ╚════════════════════════════════════════════════════════════╝`,
-`// ── Juego ───────────────────────────────────────────────────`,
-``,
-`con_enable "${cv('con_enable','1')}"\t\t\t\t\t\t// Habilita la consola`,
-`mm_dedicated_search_maxping "${cv('mm_dedicated_search_maxping','40')}"\t\t\t// Ping maximo al buscar partida`,
-`rate "${cv('rate','786432')}"\t\t\t\t\t\t// Ancho de banda maximo`,
-`cl_net_buffer_ticks "${cv('cl_net_buffer_ticks','0')}"\t\t\t\t\t// Sin buffer extra de red`,
-`install_dlc_workshoptools_cvar "${cv('install_dlc_workshoptools_cvar','0')}"\t\t\t// No instalar herramientas de Workshop`,
-``,
-`// ── HUD ───────────────────────────────────────────────────────`,
-``,
-`hud_scaling "${cv('hud_scaling','1')}"\t\t\t\t\t\t// Escala general del HUD`,
-`cl_hud_color "${cv('cl_hud_color','2')}"\t\t\t\t\t// Color del HUD`,
-`cl_teamcounter_playercount_instead_of_avatars "${cv('cl_teamcounter_playercount_instead_of_avatars','0')}"\t// Conteo grande = NO (mostrar avatares)`,
-`ui_steam_overlay_notification_position "${cv('ui_steam_overlay_notification_position','bottomleft')}"\t// Posicion de notificaciones`,
-`ui_steam_overlay_notification_position_horz "${cv('ui_steam_overlay_notification_position_horz','0')}"\t\t// Offset horizontal`,
-`ui_steam_overlay_notification_position_vert "${cv('ui_steam_overlay_notification_position_vert','0')}"\t\t// Offset vertical`,
-`cl_weapon_selection_rarity_color "${cv('cl_weapon_selection_rarity_color','0')}"\t\t\t// Brillo por rareza = NO`,
-`cl_force_spec_hud_color_to_team "${cv('cl_force_spec_hud_color_to_team','0')}"\t\t\t// Sobreescribir color HUD al espectar = NO`,
-``,
-`// ── Equipo ──────────────────────────────────────────────────`,
-``,
-`cl_teamid_overhead_mode "${cv('cl_teamid_overhead_mode','3')}"\t\t\t\t// Mostrar: pips, nombres, vida y equipo`,
-`cl_teammate_colors_show "${cv('cl_teammate_colors_show','1')}"\t\t\t\t// Colores por jugador en competitivo`,
-`cl_teamid_overhead_colors_show "${cv('cl_teamid_overhead_colors_show','1')}"\t\t\t// Colores en indicador sobre companeros`,
-`lobby_default_privacy_bits2 "${cv('lobby_default_privacy_bits2','1')}"\t\t\t\t// Lobby = todos los amigos pueden unirse`,
-`ui_setting_advertiseForhire_auto "${cv('ui_setting_advertiseForhire_auto','0')}"\t\t\t// No anunciar "buscando equipo"`,
-``,
-`// ── Comunicación ────────────────────────────────────────────`,
-``,
-`cl_player_ping_mute "${cv('cl_player_ping_mute','1')}"\t\t\t\t\t// Pings: mostrar sin sonido`,
-`cl_mute_enemy_team "${cv('cl_mute_enemy_team','0')}"\t\t\t\t\t// No silenciar voz enemiga`,
-`cl_mute_all_but_friends_and_party "${cv('cl_mute_all_but_friends_and_party','0')}"\t\t\t// No silenciar a todos salvo amigos`,
-`cl_allow_animated_avatars "${cv('cl_allow_animated_avatars','0')}"\t\t\t\t// Avatares animados = NO`,
-`cl_hide_avatar_images "${cv('cl_hide_avatar_images','2')}"\t\t\t\t// Avatares = solo amigos`,
-`cl_sanitize_player_names "${cv('cl_sanitize_player_names','0')}"\t\t\t\t// No limpiar nombres de jugadores`,
-``,
-`// ── Espectador / Marcador ───────────────────────────────────`,
-``,
-`spec_usenumberkeys_nobinds "${cv('spec_usenumberkeys_nobinds','1')}"\t\t\t\t// Numeros = cambiar espectador sin pisar binds`,
-`cl_scoreboard_mouse_enable_binding "${cv('cl_scoreboard_mouse_enable_binding','+attack2')}"\t\t// Mouse en marcador = click derecho`,
-`eom_local_player_defeat_anim_enabled "${cv('eom_local_player_defeat_anim_enabled','1')}"\t\t// Animacion de derrota`,
-`cl_scoreboard_survivors_always_on "${cv('cl_scoreboard_survivors_always_on','0')}"\t\t\t// Supervivientes visibles = NO`,
-`cl_obs_interp_enable "${cv('cl_obs_interp_enable','0')}"\t\t\t\t// Camara espectador suavizada = NO`,
-`cl_obs_interp_speed "${cv('cl_obs_interp_speed','0.25')}"\t\t\t\t// Velocidad de suavizado (si se activa)`,
-``,
-`// ── Item ────────────────────────────────────────────────────`,
-``,
-`cl_silencer_mode "${cv('cl_silencer_mode','0')}"\t\t\t\t\t// Silenciador = acoplado`,
-`viewmodel_fov "${cv('viewmodel_fov','68')}"\t\t\t\t\t// FOV del arma (max. competitivo)`,
-`viewmodel_offset_x "${cv('viewmodel_offset_x','2.5')}"\t\t\t\t// Posicion del arma: adelante/atras`,
-`viewmodel_offset_y "${cv('viewmodel_offset_y','0')}"\t\t\t\t\t// Posicion del arma: izquierda/derecha`,
-`viewmodel_offset_z "${cv('viewmodel_offset_z','-1.5')}"\t\t\t\t// Posicion del arma: arriba/abajo`,
-`viewmodel_presetpos "${cv('viewmodel_presetpos','2')}"\t\t\t\t\t// Posicion preestablecida = Classic`,
-`cl_prefer_lefthanded "${cv('cl_prefer_lefthanded','0')}"\t\t\t\t// Arma en mano derecha`,
-`r_drawtracers_firstperson "${cv('r_drawtracers_firstperson','1')}"\t\t\t\t// Trazadoras en 1ra persona`,
-`cl_showloadout "${cv('cl_showloadout','1')}"\t\t\t\t\t// Mostrar inventario en pantalla`,
-`cl_use_opens_buy_menu "${cv('cl_use_opens_buy_menu','0')}"\t\t\t\t// E no abre el menu de compra`,
-`cl_buywheel_nonumberpurchasing "${cv('cl_buywheel_nonumberpurchasing','1')}"\t\t\t// Rueda de compra sin numeros`,
-`cl_buywheel_donate_key "${cv('cl_buywheel_donate_key','0')}"\t\t\t\t// Tecla donar = Ctrl izq.`,
-``,
-`// ── Radar ───────────────────────────────────────────────────`,
-``,
-`cl_radar_always_centered "${cv('cl_radar_always_centered','0')}"\t\t\t\t// Radar se desplaza con tu posicion`,
-`cl_radar_rotate "${cv('cl_radar_rotate','1')}"\t\t\t\t\t// Radar rota segun tu mirada`,
-`cl_hud_radar_map_additive "${cv('cl_hud_radar_map_additive','1')}"\t\t\t\t// Blend del mapa`,
-`cl_hud_radar_blur_background "${cv('cl_hud_radar_blur_background','0')}"\t\t\t// Sin desenfoque de fondo`,
-`cl_hud_radar_background_alpha "${cv('cl_hud_radar_background_alpha','1')}"\t\t\t// Opacidad del fondo = 100%`,
-`cl_hud_radar_scale "${cv('cl_hud_radar_scale','1.3')}"\t\t\t\t// Tamano del radar en HUD`,
-`cl_radar_scale "${cv('cl_radar_scale','0.4')}"\t\t\t\t\t// Zoom del mapa en el radar`,
-`cl_radar_scale_alternate "${cv('cl_radar_scale_alternate','1')}"\t\t\t\t// Escala alternativa (toggleradarscale)`,
-`cl_radar_square_with_scoreboard "${cv('cl_radar_square_with_scoreboard','1')}"\t\t\t// Radar cuadrado con marcador`,
-`cl_radar_square_always "${cv('cl_radar_square_always','0')}"\t\t\t\t// Radar cuadrado siempre = NO`,
-`cl_radar_scale_dynamic "${cv('cl_radar_scale_dynamic','0')}"\t\t\t\t// Zoom dinamico = NO`,
-``,
-`// ── Crosshair ───────────────────────────────────────────────`,
-``,
-`cl_crosshairstyle "${cv('cl_crosshairstyle','4')}"\t\t\t\t\t// Estilo = Classic Static`,
-`cl_crosshair_friendly_warning "${cv('cl_crosshair_friendly_warning','1')}"\t\t\t// Advertencia al apuntar a companeros`,
-`cl_crosshair_recoil "${cv('cl_crosshair_recoil','0')}"\t\t\t\t\t// No seguir el recoil`,
-`cl_crosshairdot "${cv('cl_crosshairdot','0')}"\t\t\t\t\t// Sin punto central`,
-`cl_crosshairsize "${cv('cl_crosshairsize','2.5')}"\t\t\t\t\t// Largo de cada linea`,
-`cl_crosshairthickness "${cv('cl_crosshairthickness','0.5')}"\t\t\t\t// Grosor de linea`,
-`cl_crosshairgap "${cv('cl_crosshairgap','-8')}"\t\t\t\t\t// Espacio entre lineas y centro`,
-`cl_crosshair_outlinethickness "${cv('cl_crosshair_outlinethickness','0')}"\t\t\t// Sin contorno`,
-`cl_crosshaircolor_r "${cv('cl_crosshaircolor_r','0')}"\t\t\t\t\t// Color personalizado: rojo`,
-`cl_crosshaircolor_g "${cv('cl_crosshaircolor_g','255')}"\t\t\t\t// Color personalizado: verde`,
-`cl_crosshaircolor_b "${cv('cl_crosshaircolor_b','0')}"\t\t\t\t\t// Color personalizado: azul`,
-`cl_crosshairalpha "${cv('cl_crosshairalpha','255')}"\t\t\t\t\t// Opacidad = 100%`,
-`cl_crosshair_t "${cv('cl_crosshair_t','0')}"\t\t\t\t\t// Cruz completa (no T-style)`,
-`cl_crosshairgap_useweaponvalue "${cv('cl_crosshairgap_useweaponvalue','0')}"\t\t\t// Gap fijo (ignora el del arma)`,
-`cl_ironsight_usecrosshaircolor "${cv('cl_ironsight_usecrosshaircolor','0')}"\t\t\t// Scope NO usa color del crosshair`,
-`cl_show_observer_crosshair "${cv('cl_show_observer_crosshair','0')}"\t\t\t\t// No mostrar crosshair de espectados`,
-``,
-`// ── Miras de sniper ───────────────────────────────────────────`,
-``,
-`cl_sniper_delay_unscope "${cv('cl_sniper_delay_unscope','0')}"\t\t\t\t// Sin delay al desenfocar sniper`,
-`cl_crosshair_sniper_show_normal_inaccuracy "${cv('cl_crosshair_sniper_show_normal_inaccuracy','1')}"\t\t// Mostrar inexactitud (circulo)`,
-`cl_sniper_auto_rezoom "${cv('cl_sniper_auto_rezoom','1')}"\t\t\t\t// Re-enfocar automaticamente`,
-`cl_crosshair_sniper_width "${cv('cl_crosshair_sniper_width','1')}"\t\t\t\t// Grosor de la cruz de sniper`,
-`cl_ironsight_dot_scale "${cv('cl_ironsight_dot_scale','1')}"\t\t\t\t// Escala del punto de mira = 100%`,
-``,
-`// ── Mira de alineación para granadas ───────────────────────────`,
-``,
-`cl_grenadecrosshair_keepusercrosshair "${cv('cl_grenadecrosshair_keepusercrosshair','1')}"\t\t// Mantener crosshair al lanzar`,
-`cl_grenadecrosshair_flash "${cv('cl_grenadecrosshair_flash','0')}"\t\t\t\t// Sin arco para flashbang`,
-`cl_grenadecrosshairdelay_flash "${cv('cl_grenadecrosshairdelay_flash','0')}"\t\t\t// Delay arco flashbang`,
-`cl_grenadecrosshair_explosive "${cv('cl_grenadecrosshair_explosive','0')}"\t\t\t// Sin arco para HE`,
-`cl_grenadecrosshairdelay_explosive "${cv('cl_grenadecrosshairdelay_explosive','0')}"\t\t\t// Delay arco HE`,
-`cl_grenadecrosshair_fire "${cv('cl_grenadecrosshair_fire','0')}"\t\t\t\t// Sin arco para molotov`,
-`cl_grenadecrosshairdelay_fire "${cv('cl_grenadecrosshairdelay_fire','0')}"\t\t\t// Delay arco molotov`,
-`cl_grenadecrosshair_smoke "${cv('cl_grenadecrosshair_smoke','1')}"\t\t\t\t// Mostrar arco para smoke`,
-`cl_grenadecrosshairdelay_smoke "${cv('cl_grenadecrosshairdelay_smoke','1.5')}"\t\t\t// Delay arco smoke (segundos)`,
-`cl_grenadecrosshair_decoy "${cv('cl_grenadecrosshair_decoy','0')}"\t\t\t\t// Sin arco para decoy`,
-`cl_grenadecrosshairdelay_decoy "${cv('cl_grenadecrosshairdelay_decoy','0')}"\t\t\t// Delay arco decoy`,
-``,
-`// ── Predicción de daño ─────────────────────────────────────────`,
-``,
-`cl_predict_body_shot_fx "${cv('cl_predict_body_shot_fx','0')}"\t\t\t\t// No predecir impacto en cuerpo`,
-`cl_predict_head_shot_fx "${cv('cl_predict_head_shot_fx','0')}"\t\t\t\t// No predecir impacto en cabeza`,
-`cl_predict_kill_ragdolls "${cv('cl_predict_kill_ragdolls','0')}"\t\t\t\t// No predecir ragdolls`,
-``,
-`// ── Telemetría ──────────────────────────────────────────────`,
-``,
-`cl_hud_telemetry_frametime_show "${cv('cl_hud_telemetry_frametime_show','0')}"\t\t\t// Grafico de frametime = nunca`,
-`cl_hud_telemetry_frametime_poor "${cv('cl_hud_telemetry_frametime_poor','10')}"\t\t\t// Umbral frametime "malo" (10ms = 100FPS)`,
-`cl_hud_telemetry_ping_show "${cv('cl_hud_telemetry_ping_show','1')}"\t\t\t\t// Mostrar ping = si las condiciones son malas`,
-`cl_hud_telemetry_net_misdelivery_show "${cv('cl_hud_telemetry_net_misdelivery_show','1')}"\t\t// Problemas de red = si las condiciones son malas`,
-`cl_hud_telemetry_net_misdelivery_poor "${cv('cl_hud_telemetry_net_misdelivery_poor','2')}"\t\t// Umbral paquetes perdidos`,
-`cl_hud_telemetry_net_detailed "${cv('cl_hud_telemetry_net_detailed','0')}"\t\t\t// Detalle extendido = nunca`,
-`cl_hud_telemetry_net_quality_graph_show "${cv('cl_hud_telemetry_net_quality_graph_show','0')}"\t\t// Grafico de calidad = nunca`,
-``,
-`// ╔════════════════════════════════════════════════════════════╗`,
-`// ║  TECLADO Y MOUSE                                             ║`,
-`// ╚════════════════════════════════════════════════════════════╝`,
-`// ── Teclado y configuración de mouse ───────────────────────────`,
-``,
-`//Reverse mouse — OFF (m_pitch positivo)`,
-`option_duck_method "${cv('option_duck_method','0')}"\t\t\t\t\t// Duck Mode = Hold`,
-`option_speed_method "${cv('option_speed_method','0')}"\t\t\t\t\t// Walk Mode = Hold`,
-`cl_debounce_zoom "${cv('cl_debounce_zoom','0')}"\t\t\t\t\t// Zoom Button Hold = Repeat Disabled`,
-`sensitivity "${cv('sensitivity','0.787')}"\t\t\t\t\t// Sensibilidad base`,
-`zoom_sensitivity_ratio "${cv('zoom_sensitivity_ratio','1')}"\t\t\t\t// Sensibilidad con scope`,
-``,
-`// ── Teclas de movimiento ───────────────────────────────────`,
-``,
-`bind "${b('show_loadout_toggle',' ')}" "show_loadout_toggle" \t\t\t\t// Toggle inventario`,
-`bind "w" "+forward"\t\t\t\t\t// Avanzar`,
-`bind "s" "+back"\t\t\t\t\t// Retroceder`,
-`bind "a" "+left"\t\t\t\t\t// Izquierda`,
-`bind "d" "+right"\t\t\t\t\t// Derecha`,
-`bind "shift" "+sprint"\t\t\t\t\t// Caminar/correr (Walk)`,
-`bind "ctrl" "+duck"\t\t\t\t\t// Agacharse (Duck)`,
-`bind "space" "+jump"\t\t\t\t\t// Saltar`,
-`bind "mwheeldown" "+jump"\t\t\t\t// Saltar`,
-`bind "mwheelup" "+jump"\t\t\t\t\t// Saltar`,
-``,
-`// ── Teclas de armas ───────────────────────────────────`,
-``,
-`bind "e" "+use"\t\t\t\t\t\t// Usar — abrir puertas, defusar`,
-`bind "mouse1" "+attack"\t\t\t\t\t// Disparar`,
-`bind "mouse2" "+attack2"\t\t\t\t// Mira/fuego secundario`,
-`bind "r" "+reload"\t\t\t\t\t// Recargar`,
-`bind " " "+quickinv"\t\t\t\t\t// Menu radial de armas`,
-`bind " " "invprev"\t\t\t\t\t// Arma anterior`,
-`bind " " "invnext"\t\t\t\t\t// Arma siguiente`,
-`bind " " "lastinv"\t\t\t\t\t// Ultima arma usada`,
-`bind "g" "drop"\t\t\t\t\t\t// Soltar arma/bomba`,
-`bind "f" "+lookatweapon"\t\t\t\t// Inspeccionar arma`,
-`bind " " "switchhands"\t\t\t\t\t// Cambiar el arma de mano izq/der`,
-`bind "b" "buymenu"\t\t\t\t\t// Menu de compra`,
-`bind " " "autobuy"\t\t\t\t\t// Autocomprar`,
-`bind " " "rebuy"\t\t\t\t\t// Recomprar equipo anterior`,
-`bind "1" "slot1"\t\t\t\t\t// Arma primaria`,
-`bind "2" "slot2"\t\t\t\t\t// Arma secundaria`,
-`bind "3" "slot3"\t\t\t\t\t// Cuchillo`,
-`bind " " "slot4"\t\t\t\t\t// Ciclar granadas`,
-`bind "mouse5" "slot5"\t\t\t\t\t// Explosivos y trampas`,
-`bind "4" "slot6"\t\t\t\t\t// Granada HE`,
-`bind "v" "slot7"\t\t\t\t\t// Flashbang`,
-`bind "c" "slot8"\t\t\t\t\t// Smoke`,
-`bind "5" "slot9"\t\t\t\t\t// Decoy`,
-`bind "x" "slot10"\t\t\t\t\t// Molotov/incendiaria`,
-`bind " " "slot11"\t\t\t\t\t// Zeus x27`,
-`bind " " "slot12"\t\t\t\t\t// Healthshot`,
-`bind " " "slot13"\t\t\t\t\t// Utility items`,
-`bind "t" "+spray_menu"\t\t\t\t\t// Rueda de grafitis`,
-``,
-`// ── Teclas de interfaz ────────────────────────────────────────`,
-``,
-`bind "tab" "+showscores"\t\t\t\t// Marcador`,
-`bind " " "+cl_show_team_equipment"\t\t\t// Mostrar equipo del equipo`,
-`bind "q"   "toggleradarscale"\t\t\t\t// Zoom del radar`,
-`bind " " "callvote"\t\t\t\t\t// Votaciones`,
-`bind " " "teammenu"\t\t\t\t\t// Elegir equipo`,
-`bind "|" "toggleconsole"\t\t\t\t// Consola de desarrollador`,
-``,
-`// ── Opciones de comunicación ────────────────────────────────────────`,
-``,
-`bind "n" "player_ping"\t\t\t\t\t// Ping del jugador`,
-`bind " " "radio"\t\t\t\t\t// Menu de radio`,
-`bind " " "radio1"\t\t\t\t\t// Radio: comandos de equipo`,
-`bind " " "radio2"\t\t\t\t\t// Radio: respuestas`,
-`bind " " "radio3"\t\t\t\t\t// Radio: reacciones`,
-`bind "enter" "messagemode2"\t\t\t\t// Chat de equipo`,
-`bind " " "messagemode"\t\t\t\t\t// Chat general`,
-`bind "mouse4" "+voicerecord"\t\t\t\t// Presionar para hablar`,
-`bind " " "voice_toggle_open_mic"\t\t\t// Alternar mic abierto / push-to-talk`,
-`bind " " "clutch_mode_toggle"\t\t\t\t// Activar/desactivar modo clutch`,
-``,
-`// ── Rueda de chat ────────────────────────────────────────`,
-``,
-`bind " " "+radialradio"\t\t\t\t\t// Rueda de chat rapido 1`,
-`bind " " "+radialradio2"\t\t\t\t// Rueda de chat rapido 2`,
-`bind " " "+radialradio3"\t\t\t\t// Rueda de chat rapido 3`,
-  ];
-
-  return lines.join('\n');
-}
-
-// ── COPY AUTOEXEC ────────────────────────────────────────────
-window.copyAutoexec = function() {
-  if (!window._generatedAutoexec) return;
-  navigator.clipboard.writeText(window._generatedAutoexec).then(() => {
-    const btn = document.querySelector('[onclick="copyAutoexec()"]');
-    if (btn) {
-      btn.innerHTML = '<i class="ti ti-check"></i> Copiado';
-      setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy"></i> Copiar'; }, 2000);
-    }
-  });
-};
-
-// ── BACK TO STEP 1 ───────────────────────────────────────────
-window.backToStep1 = function() {
-  // Reload to reset state cleanly
-  location.reload();
-};
-
-// ── GO TO STEP 3 (placeholder) ───────────────────────────────
-window.goToStep3 = function() {
-  document.getElementById('step-2').classList.remove('active');
-  document.getElementById('step-2').classList.add('done');
-  document.getElementById('step-3').classList.add('active');
-  alert('Paso 3 (Scripts) en construcción.');
-};
 </script>
 </body>
 </html>
